@@ -87,19 +87,39 @@
 
 
 
-<meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta name="description" content="之前在做网页的过程( 纯 HTML + CSS )中遇到过这么一个问题：当父级在使用了定位的情况下，如何实现父级能够覆盖通过hover显示的子级的部分区域？(情况如图所示)
+
+
+
+如图所示的情况，是需要通过父级的白色背景来覆盖子级的边框以实现图中的效果
+
+
+######遇到这种情况，相信大家的第一反应都一样，那就是给父级设置 z-index 使得父级的 z-index 大于子级的 z-index">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2017/03/28/hello-world/index.html">
+<meta property="og:title" content="HTML 5 基础之 hover 疑难杂症">
+<meta property="og:url" content="http://yoursite.com/2015/04/01/HTML-5-基础之-hover-疑难杂症/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
-<meta property="og:updated_time" content="2017-03-27T17:39:18.849Z">
+<meta property="og:description" content="之前在做网页的过程( 纯 HTML + CSS )中遇到过这么一个问题：当父级在使用了定位的情况下，如何实现父级能够覆盖通过hover显示的子级的部分区域？(情况如图所示)
+
+
+
+如图所示的情况，是需要通过父级的白色背景来覆盖子级的边框以实现图中的效果
+
+
+######遇到这种情况，相信大家的第一反应都一样，那就是给父级设置 z-index 使得父级的 z-index 大于子级的 z-index">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2836722-adea6340934f2d8f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-03-27T20:19:25.931Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta name="twitter:title" content="HTML 5 基础之 hover 疑难杂症">
+<meta name="twitter:description" content="之前在做网页的过程( 纯 HTML + CSS )中遇到过这么一个问题：当父级在使用了定位的情况下，如何实现父级能够覆盖通过hover显示的子级的部分区域？(情况如图所示)
+
+
+
+如图所示的情况，是需要通过父级的白色背景来覆盖子级的边框以实现图中的效果
+
+
+######遇到这种情况，相信大家的第一反应都一样，那就是给父级设置 z-index 使得父级的 z-index 大于子级的 z-index">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/2836722-adea6340934f2d8f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
 
@@ -127,13 +147,13 @@ Quick">
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/03/28/hello-world/"/>
+  <link rel="canonical" href="http://yoursite.com/2015/04/01/HTML-5-基础之-hover-疑难杂症/"/>
 
 
 
 
 
-  <title> Hello World | Hexo </title>
+  <title> HTML 5 基础之 hover 疑难杂症 | Hexo </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -272,7 +292,7 @@ Quick">
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/28/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/04/01/HTML-5-基础之-hover-疑难杂症/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Nick">
@@ -293,7 +313,7 @@ Quick">
             
             
               
-                Hello World
+                HTML 5 基础之 hover 疑难杂症
               
             
           </h1>
@@ -308,8 +328,8 @@ Quick">
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-28T01:39:18+08:00">
-                2017-03-28
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-04-01T00:00:00+08:00">
+                2015-04-01
               </time>
             
 
@@ -344,15 +364,39 @@ Quick">
       
 
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+        <blockquote>
+<p>之前在做网页的过程( 纯 HTML + CSS )中遇到过这么一个问题：当父级在使用了定位的情况下，如何实现父级能够覆盖通过hover显示的子级的部分区域？(情况如图所示)</p>
+</blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/2836722-adea6340934f2d8f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Image.png"></p>
+<blockquote>
+<p>如图所示的情况，是需要通过父级的白色背景来覆盖子级的边框以实现图中的效果</p>
+</blockquote>
+<hr>
+<p>######遇到这种情况，相信大家的第一反应都一样，那就是给父级设置 z-index 使得父级的 z-index 大于子级的 z-index。<br>然而事实证明这样的方法是行不通的，因为父级和子级同时都设置了定位，那么在无论给父级设置怎样的 z-index 都不可能大于子级的 z-index，因为子级始终是基于父级之上的。</p>
+<p>######那么给子级设置负数 z-index 呢？<br>我不得不说在给子级设置一个比较大的负数之后的确有效果，这样做使得原本一直是子级覆盖父级的情况发生改变，但是并不能扭转局面，而是出现一种父级和子级貌似平级但是都无法相互覆盖，内容也不发生拥挤，边框可以叠压在父级内容之上，但是子级白色背景却无法覆盖父级的情况。事实证明这种方法也行不通。</p>
+<p>######那么给父级取消定位不就好了？<br>确实，这样的话问题就不存在了。但是，图中情况子级必须用到绝对定位，而使用绝对定位则必须给父级设置定位，那么在这种大前提下，是不可能的。</p>
+<hr>
+<p>###<strong>那如何才能解决这一疑难杂症呢？</strong></p>
+<p>#####我们首先来分析一下图中情况</p>
+<blockquote>
+<p>图中需要实现的是在划动父级的过程中出现子级，而由于特殊边框这一情况我们需要使得父级遮盖一部分子级边框方能达到图中所示效果。</p>
+</blockquote>
+<p>#####1.对于实现划动父级的过程中出现子级</p>
+<blockquote>
+<p>方法有二<br>1.通过父级 hover 子级的方式实现<br>2.通过兄弟关系 hover 实现（只能实现上一个兄弟元素 hover 下一个兄弟元素，无法实现后面的 hover 前面的兄弟元素）<br>既然第一种方法无法达到我们想要的结果，那么自然而然应该试试第二种方法</p>
+</blockquote>
+<p>#####2.兄弟关系 hover （只能实现上一个兄弟元素 hover 下一个兄弟元素，无法实现后面的 hover 前面的兄弟元素）</p>
+<blockquote>
+<p>通过兄弟关系 hover 确实能够达到想要的结果，因为没有了父子级的关系，那么兄弟之间的 z-index 相对独立，只要其中任意一个比另外一个要高，那么就能覆盖低的那一个。效果是达到了，但是通过 hover 出现的后一级兄弟元素无法通过鼠标选中和点击了，换句话说，一旦鼠标离开前一级兄弟元素的范围，通过 hover 出现的后一级兄弟就会消失。（梦想看得见了，却摸不着了。）</p>
+</blockquote>
+<p>####3.如何解决“摸不着”的问题呢？</p>
+<blockquote>
+<p>由于 hover 属性的特点，只要鼠标在被 hover 元素的范围内，那么通过 hover 出现的元素就不会消失，相反若是通过 hover 出现的元素在被 hover 元素的范围内，那么理所应当便可以被点击和选中了。解决方法只需在给这两个兄弟元素套一个父级，被 hover 的元素若是父级，那么子级自然就在 hover区域内，在hover区域内操作鼠标通过 hover 出现的子元素自然就不会消失了。</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>以上纯属个人学习总结，如有疏漏或者不足之处还望指正，谢谢！</p>
+</blockquote>
 
       
     </div>
@@ -389,8 +433,8 @@ Quick">
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/04/20/HTML-与-javascript-自解码机制/" rel="next" title="HTML 与 javascript 自解码机制">
-                <i class="fa fa-chevron-left"></i> HTML 与 javascript 自解码机制
+              <a href="/2015/03/28/HTML-5-基础（一）/" rel="next" title="HTML 5   基础（一）">
+                <i class="fa fa-chevron-left"></i> HTML 5   基础（一）
               </a>
             
           </div>
@@ -398,6 +442,10 @@ Quick">
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/04/17/实现鼠标-hover-元素中心点放大效果/" rel="prev" title="实现鼠标 hover 元素中心点放大效果">
+                实现鼠标 hover 元素中心点放大效果 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -444,17 +492,8 @@ Quick">
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/Naruto.JPG"
@@ -498,22 +537,6 @@ Quick">
 
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       

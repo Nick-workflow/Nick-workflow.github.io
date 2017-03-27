@@ -1,0 +1,752 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="1.前端认知前端开发到底是做什么的？
+我们是做什么的？
+IT系统工程负责信息化系统的设计、建设，包括设备、系统、数据库、应用系统的建设
+
+在公司中一个项目的开发流程是什么样子的？1. 产品需求
+产品经理     需求文档Product Manager
+1.1 第一次例会    去掉不合理的需求2. 项目设计
+视觉设计师      各种PSD文件交互设计师
+2.1 第二次例会    排工期3. 前端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTML 5   基础（一）">
+<meta property="og:url" content="http://yoursite.com/2015/03/28/HTML-5-基础（一）/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="1.前端认知前端开发到底是做什么的？
+我们是做什么的？
+IT系统工程负责信息化系统的设计、建设，包括设备、系统、数据库、应用系统的建设
+
+在公司中一个项目的开发流程是什么样子的？1. 产品需求
+产品经理     需求文档Product Manager
+1.1 第一次例会    去掉不合理的需求2. 项目设计
+视觉设计师      各种PSD文件交互设计师
+2.1 第二次例会    排工期3. 前端">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2836722-bcda108279daadce.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2836722-6b5f5b4a67e9ecad.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-03-27T20:19:14.924Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HTML 5   基础（一）">
+<meta name="twitter:description" content="1.前端认知前端开发到底是做什么的？
+我们是做什么的？
+IT系统工程负责信息化系统的设计、建设，包括设备、系统、数据库、应用系统的建设
+
+在公司中一个项目的开发流程是什么样子的？1. 产品需求
+产品经理     需求文档Product Manager
+1.1 第一次例会    去掉不合理的需求2. 项目设计
+视觉设计师      各种PSD文件交互设计师
+2.1 第二次例会    排工期3. 前端">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/2836722-bcda108279daadce.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2015/03/28/HTML-5-基础（一）/"/>
+
+
+
+
+
+  <title> HTML 5   基础（一） | Hexo </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/03/28/HTML-5-基础（一）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nick">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/Naruto.JPG">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                HTML 5   基础（一）
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-03-28T00:00:00+08:00">
+                2015-03-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="1-前端认知"><a href="#1-前端认知" class="headerlink" title="1.前端认知"></a>1.前端认知</h2><h3 id="前端开发到底是做什么的？"><a href="#前端开发到底是做什么的？" class="headerlink" title="前端开发到底是做什么的？"></a>前端开发到底是做什么的？</h3><ul>
+<li><h4 id="我们是做什么的？"><a href="#我们是做什么的？" class="headerlink" title="我们是做什么的？"></a>我们是做什么的？</h4><blockquote>
+<h5 id="IT系统工程"><a href="#IT系统工程" class="headerlink" title="IT系统工程"></a>IT系统工程</h5><h5 id="负责信息化系统的设计、建设，包括设备、系统、数据库、应用系统的建设"><a href="#负责信息化系统的设计、建设，包括设备、系统、数据库、应用系统的建设" class="headerlink" title="负责信息化系统的设计、建设，包括设备、系统、数据库、应用系统的建设"></a>负责信息化系统的设计、建设，包括设备、系统、数据库、应用系统的建设</h5></blockquote>
+</li>
+<li><h4 id="在公司中一个项目的开发流程是什么样子的？"><a href="#在公司中一个项目的开发流程是什么样子的？" class="headerlink" title="在公司中一个项目的开发流程是什么样子的？"></a>在公司中一个项目的开发流程是什么样子的？</h4><h5 id="1-产品需求"><a href="#1-产品需求" class="headerlink" title="1. 产品需求"></a>1. 产品需求</h5><blockquote>
+<h6 id="产品经理-需求文档"><a href="#产品经理-需求文档" class="headerlink" title="产品经理     需求文档"></a>产品经理     需求文档</h6><h6 id="Product-Manager"><a href="#Product-Manager" class="headerlink" title="Product Manager"></a>Product Manager</h6></blockquote>
+<h6 id="1-1-第一次例会-去掉不合理的需求"><a href="#1-1-第一次例会-去掉不合理的需求" class="headerlink" title="1.1 第一次例会    去掉不合理的需求"></a>1.1 第一次例会    去掉不合理的需求</h6><h5 id="2-项目设计"><a href="#2-项目设计" class="headerlink" title="2. 项目设计"></a>2. 项目设计</h5><blockquote>
+<h6 id="视觉设计师-各种PSD文件"><a href="#视觉设计师-各种PSD文件" class="headerlink" title="视觉设计师      各种PSD文件"></a>视觉设计师      各种PSD文件</h6><h6 id="交互设计师"><a href="#交互设计师" class="headerlink" title="交互设计师"></a>交互设计师</h6></blockquote>
+<h6 id="2-1-第二次例会-排工期"><a href="#2-1-第二次例会-排工期" class="headerlink" title="2.1 第二次例会    排工期"></a>2.1 第二次例会    排工期</h6><h5 id="3-前端开发"><a href="#3-前端开发" class="headerlink" title="3. 前端开发"></a>3. 前端开发</h5><blockquote>
+<h6 id="前端开发工程师（HTML-5-IOS-Android-Unity-3D）"><a href="#前端开发工程师（HTML-5-IOS-Android-Unity-3D）" class="headerlink" title="前端开发工程师（HTML 5      IOS     Android   Unity-3D）"></a>前端开发工程师（HTML 5      IOS     Android   Unity-3D）</h6></blockquote>
+<h5 id="4-后台开发"><a href="#4-后台开发" class="headerlink" title="4. 后台开发"></a>4. 后台开发</h5><blockquote>
+<h6 id="后台开发工程师-配合处理"><a href="#后台开发工程师-配合处理" class="headerlink" title="后台开发工程师     配合处理"></a>后台开发工程师     配合处理</h6></blockquote>
+<h5 id="5-测试"><a href="#5-测试" class="headerlink" title="5. 测试"></a>5. 测试</h5><blockquote>
+<h6 id="暴力测试-疯狂点击"><a href="#暴力测试-疯狂点击" class="headerlink" title="暴力测试      疯狂点击"></a>暴力测试      疯狂点击</h6><h6 id="打桩测试-给固定数值测试某一功能"><a href="#打桩测试-给固定数值测试某一功能" class="headerlink" title="打桩测试      给固定数值测试某一功能"></a>打桩测试      给固定数值测试某一功能</h6></blockquote>
+<h5 id="6-上线运营"><a href="#6-上线运营" class="headerlink" title="6. 上线运营"></a>6. 上线运营</h5><blockquote>
+<h6 id="公司运营人员"><a href="#公司运营人员" class="headerlink" title="公司运营人员"></a>公司运营人员</h6></blockquote>
+</li>
+<li><h4 id="我们需要学会什么？"><a href="#我们需要学会什么？" class="headerlink" title="我们需要学会什么？"></a>我们需要学会什么？</h4><h5 id="1-软件（2-）"><a href="#1-软件（2-）" class="headerlink" title="1. 软件（2%）"></a>1. 软件（2%）</h5><blockquote>
+<h6 id="浏览器-编译器-PS-各种浏览器插件"><a href="#浏览器-编译器-PS-各种浏览器插件" class="headerlink" title="浏览器    编译器     PS       各种浏览器插件"></a>浏览器    编译器     PS       各种浏览器插件</h6></blockquote>
+<h5 id="2-语言（98-）"><a href="#2-语言（98-）" class="headerlink" title="2. 语言（98%）"></a>2. 语言（98%）</h5><blockquote>
+<h6 id="HTML-CSS-JavaScript-其他一些语言（Ajax-PHP-Node-js）"><a href="#HTML-CSS-JavaScript-其他一些语言（Ajax-PHP-Node-js）" class="headerlink" title="HTML    CSS    JavaScript      其他一些语言（Ajax    PHP    Node.js）"></a>HTML    CSS    JavaScript      其他一些语言（Ajax    PHP    Node.js）</h6></blockquote>
+</li>
+</ul>
+<h2 id="2-前端开发核心语言"><a href="#2-前端开发核心语言" class="headerlink" title="2.前端开发核心语言"></a>2.前端开发核心语言</h2><table>
+<thead>
+<tr>
+<th>结构</th>
+<th>样式</th>
+<th>行为</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HTML</td>
+<td>CSS</td>
+<td>JavaScript</td>
+</tr>
+</tbody>
+</table>
+<h2 id="3-HTML"><a href="#3-HTML" class="headerlink" title="3. HTML"></a>3. HTML</h2><h3 id="HTML基本结构-html"><a href="#HTML基本结构-html" class="headerlink" title="HTML基本结构.html"></a><code>HTML基本结构.html</code></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div></pre></td><td class="code"><pre><div class="line">&lt;!-- 注释 --&gt;</div><div class="line">&lt;!-- Ctrl + / --&gt;</div><div class="line">&lt;!-- </div><div class="line">	注释主要是为了开发人员书写方便，让你在后期从新回顾代码的时候，可以快速回想起来当时是如何处理的 </div><div class="line"></div><div class="line">	总结就一句话：注释是给人看的</div><div class="line">--&gt;</div><div class="line">&lt;!-- 保存：Ctrl + s  --&gt;</div><div class="line">&lt;!-- 新建：Ctrl + n  --&gt;</div><div class="line"></div><div class="line">&lt;!-- 文档头（类型）声明 --&gt;</div><div class="line">&lt;!-- 代表的是 HTML 5 的标准 --&gt;</div><div class="line">&lt;!-- 文档头声明 不是标签 （面试） --&gt;</div><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;!-- 定义 HTML 的根元素 --&gt;</div><div class="line">&lt;!-- 所有的 HTML 代码全部是书写在根元素当中的 --&gt;</div><div class="line">&lt;html&gt;</div><div class="line">	</div><div class="line">	&lt;!-- 头部 --&gt;</div><div class="line">	&lt;!-- </div><div class="line">		里面包含的绝大部分内容都是不可见的，里面的内容主要用于辅助页面的展示</div><div class="line">	 --&gt;</div><div class="line">	&lt;head&gt;</div><div class="line">		&lt;!-- </div><div class="line">			title:双标签  用于定于页面标题</div><div class="line">		 --&gt;</div><div class="line">		&lt;title&gt;Hello World！&lt;/title&gt;</div><div class="line"></div><div class="line">		&lt;!-- </div><div class="line">			meta：单标签  用于定义页面的元数据</div><div class="line">			属性：charset 针对搜索引擎和解析格式的属性</div><div class="line">		 --&gt;</div><div class="line">		&lt;meta charset=&quot;utf-8&quot;&gt;</div><div class="line">	&lt;/head&gt;</div><div class="line"></div><div class="line">	&lt;!-- </div><div class="line">		里面包含的绝大部分在页面中都是可见的，主要用于搭建 HTML 结构</div><div class="line">	 --&gt;</div><div class="line">	&lt;body&gt;</div><div class="line">		</div><div class="line">		&lt;!-- 历史上最最最常用的标签 --&gt;</div><div class="line">		&lt;div&gt;&lt;/div&gt;</div><div class="line">		&lt;!-- </div><div class="line">			div：双标签  无意义</div><div class="line">		 --&gt;</div><div class="line">	&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div><div class="line"></div><div class="line">&lt;!-- </div><div class="line">	div 是 body 的子元素</div><div class="line">	body 是 div 的父元素</div><div class="line"></div><div class="line">	div 和 body 就是父子关系</div><div class="line">	head 和 body 是兄弟关系</div><div class="line"></div><div class="line">	如果是父子关系，一定要使用 tab 去进行标记</div><div class="line"></div><div class="line">	可以使用 Ctrl + [   左移</div><div class="line">	         Ctrl + ]   右移</div><div class="line"> --&gt;</div></pre></td></tr></table></figure>
+<h3 id="CSS的引入方式-html"><a href="#CSS的引入方式-html" class="headerlink" title="CSS的引入方式.html"></a><code>CSS的引入方式.html</code></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html&gt;</div><div class="line">	&lt;head&gt;</div><div class="line">		&lt;title&gt;css的引入方式&lt;/title&gt;</div><div class="line">		&lt;meta charset = &quot;utf-8&quot;&gt;</div><div class="line"></div><div class="line">		&lt;!-- </div><div class="line">			内部样式表 </div><div class="line"></div><div class="line">			优点：相对于内联样式表代码少、省略一些</div><div class="line">				  速度快，而且没有服务器的请求压力</div><div class="line"></div><div class="line">			缺点：不易改版和维护</div><div class="line">				  造成单个界面文件过大</div><div class="line">				  代码较乱，不易前后端交互</div><div class="line"></div><div class="line">			使用场景：一般用在大型网站的首页</div><div class="line">		--&gt;</div><div class="line">		&lt;style type=&quot;text/css&quot;&gt;</div><div class="line">			/* </div><div class="line">			CSS 选择器存在优先级问题</div><div class="line"></div><div class="line">				内联样式表     1000</div><div class="line">				ID 选择器      100</div><div class="line">				类选择器       10</div><div class="line">				标签名选择器   1</div><div class="line"></div><div class="line">			*/</div><div class="line">			/*1.标签名选择器*/</div><div class="line">			/*作用范围：直接针对当前这个标签进行设置*/</div><div class="line">			div&#123;</div><div class="line">				width: 100px;</div><div class="line">				height: 100px;</div><div class="line">				background-color: red;</div><div class="line">			&#125;</div><div class="line"></div><div class="line">			/*CSS的注释方式*/</div><div class="line"></div><div class="line">			/*2.类选择器*/</div><div class="line">			/* </div><div class="line">			使用注意：使用的时候，必须要在对应的标签内部有一个相同的 class 名称，这样才能一一对应</div><div class="line"></div><div class="line">			作用范围：具有对应的 class 名称的标签</div><div class="line"></div><div class="line">			特殊之处：在一个页面中，可以存在多次，因为它选择的是一类内容</div><div class="line">			*/</div><div class="line">			.div_class&#123;</div><div class="line">				width: 300px;</div><div class="line">				height: 300px;</div><div class="line">				background-color: green;</div><div class="line">			&#125;</div><div class="line">			/*3. ID 选择器*/</div><div class="line">			/*</div><div class="line">			作用范围：具有对应的 id 名称的标签</div><div class="line"></div><div class="line">			特殊之处：在一个页面中，只能使用一次</div><div class="line">			*/</div><div class="line">			#div_id&#123;</div><div class="line">				width: 500px;</div><div class="line">				height: 500px;</div><div class="line">				background-color: blue;</div><div class="line">			&#125;</div><div class="line">		&lt;/style&gt;</div><div class="line">	&lt;/head&gt;</div><div class="line">	&lt;body&gt;</div><div class="line">		&lt;!-- 第一种方式 --&gt;</div><div class="line">		&lt;!-- </div><div class="line">			修改样式：width            用于设置宽度</div><div class="line">					  height           用于设置高度</div><div class="line">					  background-color 用于设置背景颜色</div><div class="line"></div><div class="line">			px 像素（长度单位）</div><div class="line"></div><div class="line">			属性名称 ：属性数值 ；</div><div class="line">		 --&gt;</div><div class="line">		&lt;!-- &lt;div style=&quot;width: 100px;height: 100px;background-color: red;&quot;&gt;&lt;/div&gt; --&gt;</div><div class="line">		&lt;!-- </div><div class="line">			内联样式表（直接写在标签内部的这种方式，叫做内联样式表） </div><div class="line"></div><div class="line">			缺点：冗余代码多、维护起来非常困难</div><div class="line"></div><div class="line">			优点：优先级非常高</div><div class="line"></div><div class="line">			使用场景：确定了的，不会在修改的单个样式</div><div class="line">		--&gt;</div><div class="line">		&lt;div class=&quot;div_class&quot; id=&quot;div_id&quot;&gt;&lt;/div&gt;</div><div class="line">	&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<hr>
+<h3 id="外部样式表-html"><a href="#外部样式表-html" class="headerlink" title="外部样式表.html"></a><code>外部样式表.html</code></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html lang=&quot;en&quot;&gt;</div><div class="line">&lt;head&gt;</div><div class="line">	&lt;meta charset=&quot;UTF-8&quot;&gt;</div><div class="line">	&lt;title&gt;Document&lt;/title&gt;</div><div class="line">	&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;CSS/style.css&quot;&gt;</div><div class="line">	&lt;!-- </div><div class="line">		外部样式表</div><div class="line"></div><div class="line">		优点：利于维护和改版</div><div class="line">			  一个CSS文件控制多个页面</div><div class="line">			  减少代码量，代码简洁，利于分工</div><div class="line"></div><div class="line">		缺点：相对于单个界面，有垃圾数据</div><div class="line">			  会造成服务器的请求压力</div><div class="line"></div><div class="line">		使用场景：用于大型网站的二三级页面</div><div class="line">	 --&gt;</div><div class="line">    &lt;!-- </div><div class="line">		link:</div><div class="line">				专门用于引入外部文件的标签</div><div class="line"></div><div class="line">				属性：</div><div class="line">					rel   当前引入文件和本身文件的关系</div><div class="line">					type  当前引入文件的类型、编码格式</div><div class="line">					href  用于书写引入外部样式所处位置</div><div class="line">	--&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">	&lt;div&gt;&lt;/div&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<h4 id="style-css"><a href="#style-css" class="headerlink" title="style.css"></a><code>style.css</code></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">div&#123;</div><div class="line">	width: 500px;</div><div class="line">	height: 500px;</div><div class="line">	background-color: yellow;</div><div class="line">	&#125;</div></pre></td></tr></table></figure>
+<hr>
+<h3 id="引入方式的优先级差别-html"><a href="#引入方式的优先级差别-html" class="headerlink" title="引入方式的优先级差别.html"></a><code>引入方式的优先级差别.html</code></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html lang=&quot;en&quot;&gt;</div><div class="line">&lt;head&gt;</div><div class="line">	&lt;meta charset=&quot;UTF-8&quot;&gt;</div><div class="line">	&lt;title&gt;Document&lt;/title&gt;</div><div class="line">	&lt;style type=&quot;text/css&quot;&gt;</div><div class="line">		div&#123;</div><div class="line">			width: 300px;</div><div class="line">			height: 300px;</div><div class="line">			background-color: red;</div><div class="line">		&#125;</div><div class="line">	/*</div><div class="line">		引入方式的优先级：</div><div class="line">						内联&gt;内部和外部</div><div class="line">						内部和外部谁生效   如果选择器优先级相同 ，谁后引入谁生效</div><div class="line">										   如果选择器优先级不同，选择器优先级高的生效</div><div class="line">	*/</div><div class="line">	&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;CSS/style.css&quot;&gt;</div><div class="line">	&lt;/style&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">	&lt;div&gt;&lt;/div&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<h2 id="4-小练习"><a href="#4-小练习" class="headerlink" title="4. 小练习"></a>4. 小练习</h2><h3 id="test1-html"><a href="#test1-html" class="headerlink" title="test1.html"></a><code>test1.html</code></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html lang=&quot;en&quot;&gt;</div><div class="line">&lt;head&gt;</div><div class="line">	&lt;meta charset=&quot;UTF-8&quot;&gt;</div><div class="line">	&lt;title&gt;练习&lt;/title&gt;</div><div class="line">	&lt;style type=&quot;text/css&quot;&gt;</div><div class="line">		.div_class&#123;</div><div class="line">			width: 300px;</div><div class="line">			height: 300px;</div><div class="line">			background-color: blue;</div><div class="line">		&#125;</div><div class="line">	&lt;/style&gt;</div><div class="line">	&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;CSS/test1.css&quot;&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">	&lt;!-- .div_$*3 --&gt;</div><div class="line">	&lt;div style=&quot;width:100px;height:100px;background-color:red;&quot;&gt;&lt;/div&gt;</div><div class="line">	&lt;div class=&quot;div_class&quot;&gt;&lt;/div&gt;</div><div class="line">	&lt;div id=&quot;div_id&quot;&gt;&lt;/div&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<h3 id="test1-css"><a href="#test1-css" class="headerlink" title="test1.css"></a><code>test1.css</code></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#div_id&#123;</div><div class="line">	width: 500px;</div><div class="line">	height: 500px;</div><div class="line">	background-color: green;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/2836722-bcda108279daadce.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="test1预览效果"></p>
+<hr>
+<h3 id="test2-html"><a href="#test2-html" class="headerlink" title="test2.html"></a><code>test2.html</code></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html lang=&quot;en&quot;&gt;</div><div class="line">&lt;head&gt;</div><div class="line">	&lt;meta charset=&quot;UTF-8&quot;&gt;</div><div class="line">	&lt;title&gt;练习2&lt;/title&gt;</div><div class="line">	&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;CSS/test2.css&quot;&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">	&lt;div id=&quot;p1&quot;&gt;</div><div class="line">		&lt;div id=&quot;p2&quot;&gt;</div><div class="line">			&lt;div id=&quot;p3&quot;&gt;</div><div class="line">				&lt;div id=&quot;p4&quot;&gt;</div><div class="line">					&lt;div id=&quot;p5&quot;&gt;</div><div class="line">						&lt;div id=&quot;p6&quot;&gt;</div><div class="line">							&lt;div id=&quot;p7&quot;&gt;&lt;/div&gt;</div><div class="line">						&lt;/div&gt;</div><div class="line">					&lt;/div&gt;</div><div class="line">				&lt;/div&gt;</div><div class="line">			&lt;/div&gt;</div><div class="line">		&lt;/div&gt;</div><div class="line">	&lt;/div&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<h3 id="test2-css"><a href="#test2-css" class="headerlink" title="test2.css"></a><code>test2.css</code></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">#p1&#123;</div><div class="line">	width: 700px;</div><div class="line">	height: 700px;</div><div class="line">	background-color: red;</div><div class="line">&#125;</div><div class="line">#p2&#123;</div><div class="line">	width: 600px;</div><div class="line">	height: 600px;</div><div class="line">	background-color: orange;</div><div class="line">&#125;</div><div class="line">#p3&#123;</div><div class="line">	width: 500px;</div><div class="line">	height: 500px;</div><div class="line">	background-color: yellow;</div><div class="line">&#125;</div><div class="line">#p4&#123;</div><div class="line">	width: 400px;</div><div class="line">	height: 400px;</div><div class="line">	background-color: green;</div><div class="line">&#125;</div><div class="line">#p5&#123;</div><div class="line">	width: 300px;</div><div class="line">	height: 300px;</div><div class="line">	background-color: cyan;</div><div class="line">&#125;</div><div class="line">#p6&#123;</div><div class="line">	width: 200px;</div><div class="line">	height: 200px;</div><div class="line">	background-color: blue;</div><div class="line">&#125;</div><div class="line">#p7&#123;</div><div class="line">	width: 100px;</div><div class="line">	height: 100px;</div><div class="line">	background-color: purple;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/2836722-6b5f5b4a67e9ecad.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="test1预览效果"></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/04/01/HTML-5-基础之-hover-疑难杂症/" rel="prev" title="HTML 5 基础之 hover 疑难杂症">
+                HTML 5 基础之 hover 疑难杂症 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/Naruto.JPG"
+               alt="Nick" />
+          <p class="site-author-name" itemprop="name">Nick</p>
+           
+              <p class="site-description motion-element" itemprop="description">长风破浪会有时，直挂云帆济苍海！</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-前端认知"><span class="nav-number">1.</span> <span class="nav-text">1.前端认知</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#前端开发到底是做什么的？"><span class="nav-number">1.1.</span> <span class="nav-text">前端开发到底是做什么的？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#我们是做什么的？"><span class="nav-number">1.1.1.</span> <span class="nav-text">我们是做什么的？</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#IT系统工程"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">IT系统工程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#负责信息化系统的设计、建设，包括设备、系统、数据库、应用系统的建设"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">负责信息化系统的设计、建设，包括设备、系统、数据库、应用系统的建设</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在公司中一个项目的开发流程是什么样子的？"><span class="nav-number">1.1.2.</span> <span class="nav-text">在公司中一个项目的开发流程是什么样子的？</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-产品需求"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">1. 产品需求</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#产品经理-需求文档"><span class="nav-number">1.1.2.1.1.</span> <span class="nav-text">产品经理     需求文档</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Product-Manager"><span class="nav-number">1.1.2.1.2.</span> <span class="nav-text">Product Manager</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#1-1-第一次例会-去掉不合理的需求"><span class="nav-number">1.1.2.1.3.</span> <span class="nav-text">1.1 第一次例会    去掉不合理的需求</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-项目设计"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">2. 项目设计</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#视觉设计师-各种PSD文件"><span class="nav-number">1.1.2.2.1.</span> <span class="nav-text">视觉设计师      各种PSD文件</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#交互设计师"><span class="nav-number">1.1.2.2.2.</span> <span class="nav-text">交互设计师</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-1-第二次例会-排工期"><span class="nav-number">1.1.2.2.3.</span> <span class="nav-text">2.1 第二次例会    排工期</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-前端开发"><span class="nav-number">1.1.2.3.</span> <span class="nav-text">3. 前端开发</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#前端开发工程师（HTML-5-IOS-Android-Unity-3D）"><span class="nav-number">1.1.2.3.1.</span> <span class="nav-text">前端开发工程师（HTML 5      IOS     Android   Unity-3D）</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-后台开发"><span class="nav-number">1.1.2.4.</span> <span class="nav-text">4. 后台开发</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#后台开发工程师-配合处理"><span class="nav-number">1.1.2.4.1.</span> <span class="nav-text">后台开发工程师     配合处理</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-测试"><span class="nav-number">1.1.2.5.</span> <span class="nav-text">5. 测试</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#暴力测试-疯狂点击"><span class="nav-number">1.1.2.5.1.</span> <span class="nav-text">暴力测试      疯狂点击</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#打桩测试-给固定数值测试某一功能"><span class="nav-number">1.1.2.5.2.</span> <span class="nav-text">打桩测试      给固定数值测试某一功能</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-上线运营"><span class="nav-number">1.1.2.6.</span> <span class="nav-text">6. 上线运营</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#公司运营人员"><span class="nav-number">1.1.2.6.1.</span> <span class="nav-text">公司运营人员</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#我们需要学会什么？"><span class="nav-number">1.1.3.</span> <span class="nav-text">我们需要学会什么？</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-软件（2-）"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">1. 软件（2%）</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#浏览器-编译器-PS-各种浏览器插件"><span class="nav-number">1.1.3.1.1.</span> <span class="nav-text">浏览器    编译器     PS       各种浏览器插件</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-语言（98-）"><span class="nav-number">1.1.3.2.</span> <span class="nav-text">2. 语言（98%）</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#HTML-CSS-JavaScript-其他一些语言（Ajax-PHP-Node-js）"><span class="nav-number">1.1.3.2.1.</span> <span class="nav-text">HTML    CSS    JavaScript      其他一些语言（Ajax    PHP    Node.js）</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-前端开发核心语言"><span class="nav-number">2.</span> <span class="nav-text">2.前端开发核心语言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-HTML"><span class="nav-number">3.</span> <span class="nav-text">3. HTML</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HTML基本结构-html"><span class="nav-number">3.1.</span> <span class="nav-text">HTML基本结构.html</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CSS的引入方式-html"><span class="nav-number">3.2.</span> <span class="nav-text">CSS的引入方式.html</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#外部样式表-html"><span class="nav-number">3.3.</span> <span class="nav-text">外部样式表.html</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#style-css"><span class="nav-number">3.3.1.</span> <span class="nav-text">style.css</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#引入方式的优先级差别-html"><span class="nav-number">3.4.</span> <span class="nav-text">引入方式的优先级差别.html</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-小练习"><span class="nav-number">4.</span> <span class="nav-text">4. 小练习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#test1-html"><span class="nav-number">4.1.</span> <span class="nav-text">test1.html</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#test1-css"><span class="nav-number">4.2.</span> <span class="nav-text">test1.css</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#test2-html"><span class="nav-number">4.3.</span> <span class="nav-text">test2.html</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#test2-css"><span class="nav-number">4.4.</span> <span class="nav-text">test2.css</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Nick</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
