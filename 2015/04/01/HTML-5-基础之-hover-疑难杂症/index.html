@@ -19,10 +19,7 @@
 
 
 
-如图所示的情况，是需要通过父级的白色背景来覆盖子级的边框以实现图中的效果
-
-
-######遇到这种情况，相信大家的第一反应都一样，那就是给父级设置 z-index 使得父级的 z-index 大于子级的 z-index">
+如图所示的情况，是需要通过父级的白色背景来覆盖子级的边框以实现图中的效果+">
 <meta property="og:type" content="article">
 <meta property="og:title" content="HTML 5 基础之 hover 疑难杂症">
 <meta property="og:url" content="http://yoursite.com/2015/04/01/HTML-5-基础之-hover-疑难杂症/index.html">
@@ -31,22 +28,16 @@
 
 
 
-如图所示的情况，是需要通过父级的白色背景来覆盖子级的边框以实现图中的效果
-
-
-######遇到这种情况，相信大家的第一反应都一样，那就是给父级设置 z-index 使得父级的 z-index 大于子级的 z-index">
+如图所示的情况，是需要通过父级的白色背景来覆盖子级的边框以实现图中的效果+">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2836722-adea6340934f2d8f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2017-03-27T20:19:25.931Z">
+<meta property="og:updated_time" content="2017-03-28T14:28:56.152Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HTML 5 基础之 hover 疑难杂症">
 <meta name="twitter:description" content="之前在做网页的过程( 纯 HTML + CSS )中遇到过这么一个问题：当父级在使用了定位的情况下，如何实现父级能够覆盖通过hover显示的子级的部分区域？(情况如图所示)
 
 
 
-如图所示的情况，是需要通过父级的白色背景来覆盖子级的边框以实现图中的效果
-
-
-######遇到这种情况，相信大家的第一反应都一样，那就是给父级设置 z-index 使得父级的 z-index 大于子级的 z-index">
+如图所示的情况，是需要通过父级的白色背景来覆盖子级的边框以实现图中的效果+">
 <meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/2836722-adea6340934f2d8f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
@@ -332,9 +323,9 @@
 </blockquote>
 <p><img src="http://upload-images.jianshu.io/upload_images/2836722-adea6340934f2d8f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Image.png"></p>
 <blockquote>
-<p>如图所示的情况，是需要通过父级的白色背景来覆盖子级的边框以实现图中的效果</p>
-</blockquote>
+<p>如图所示的情况，是需要通过父级的白色背景来覆盖子级的边框以实现图中的效果<br>+<a id="more"></a></p>
 <hr>
+</blockquote>
 <p>######遇到这种情况，相信大家的第一反应都一样，那就是给父级设置 z-index 使得父级的 z-index 大于子级的 z-index。<br>然而事实证明这样的方法是行不通的，因为父级和子级同时都设置了定位，那么在无论给父级设置怎样的 z-index 都不可能大于子级的 z-index，因为子级始终是基于父级之上的。</p>
 <p>######那么给子级设置负数 z-index 呢？<br>我不得不说在给子级设置一个比较大的负数之后的确有效果，这样做使得原本一直是子级覆盖父级的情况发生改变，但是并不能扭转局面，而是出现一种父级和子级貌似平级但是都无法相互覆盖，内容也不发生拥挤，边框可以叠压在父级内容之上，但是子级白色背景却无法覆盖父级的情况。事实证明这种方法也行不通。</p>
 <p>######那么给父级取消定位不就好了？<br>确实，这样的话问题就不存在了。但是，图中情况子级必须用到绝对定位，而使用绝对定位则必须给父级设置定位，那么在这种大前提下，是不可能的。</p>
@@ -371,7 +362,7 @@
         <p><span>本文标题:</span><a href="/2015/04/01/HTML-5-基础之-hover-疑难杂症/">HTML 5 基础之 hover 疑难杂症</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Nick</a></p>
         <p><span>发布时间:</span>2015-04-01, 00:00:00</p>
-        <p><span>最后更新:</span>2017-03-28, 04:19:25</p>
+        <p><span>最后更新:</span>2017-03-28, 22:28:56</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2015/04/01/HTML-5-基础之-hover-疑难杂症/" title="HTML 5 基础之 hover 疑难杂症">http://yoursite.com/2015/04/01/HTML-5-基础之-hover-疑难杂症/</a>
             <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2015/04/01/HTML-5-基础之-hover-疑难杂症/　　作者: Nick" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
