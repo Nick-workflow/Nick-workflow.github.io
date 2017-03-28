@@ -17,22 +17,22 @@
 
 <meta name="description" content="在我们开发网站的过程中常常会遇到文本被强制换行的情况发生，比如：
 图中一个完整的 a 标签被活生生截断（强制换行），这往往不是我们所想要的，但是这也是我们无法避免的，因为在网站开发过程中，我们往往无法做到精确计算出能够完美展示所容纳文本格式的空间大小。
-遇到这种情况一般的处理思路要么想办法算距离，要么一点一点的调节以达到预期要求，但是，这样做既费时又费力，那么有什么办法能一劳永逸呢？+">
+遇到这种情况一般的处理思路要么想办法算距离，要么一点一点的调节以达到预期要求，但是，这样做既费时又费力，那么有什么办法能一劳永逸呢？">
 <meta property="og:type" content="article">
 <meta property="og:title" content="HTML 5 基础之 文本 强制不换行">
 <meta property="og:url" content="http://yoursite.com/2015/05/18/HTML-5-基础之-文本-强制不换行/index.html">
 <meta property="og:site_name" content="Nick's Blog">
 <meta property="og:description" content="在我们开发网站的过程中常常会遇到文本被强制换行的情况发生，比如：
 图中一个完整的 a 标签被活生生截断（强制换行），这往往不是我们所想要的，但是这也是我们无法避免的，因为在网站开发过程中，我们往往无法做到精确计算出能够完美展示所容纳文本格式的空间大小。
-遇到这种情况一般的处理思路要么想办法算距离，要么一点一点的调节以达到预期要求，但是，这样做既费时又费力，那么有什么办法能一劳永逸呢？+">
+遇到这种情况一般的处理思路要么想办法算距离，要么一点一点的调节以达到预期要求，但是，这样做既费时又费力，那么有什么办法能一劳永逸呢？">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2836722-5b5f8f0b6f814441.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2836722-2385a724016dcb88.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2017-03-28T14:29:15.618Z">
+<meta property="og:updated_time" content="2017-03-28T14:34:00.294Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HTML 5 基础之 文本 强制不换行">
 <meta name="twitter:description" content="在我们开发网站的过程中常常会遇到文本被强制换行的情况发生，比如：
 图中一个完整的 a 标签被活生生截断（强制换行），这往往不是我们所想要的，但是这也是我们无法避免的，因为在网站开发过程中，我们往往无法做到精确计算出能够完美展示所容纳文本格式的空间大小。
-遇到这种情况一般的处理思路要么想办法算距离，要么一点一点的调节以达到预期要求，但是，这样做既费时又费力，那么有什么办法能一劳永逸呢？+">
+遇到这种情况一般的处理思路要么想办法算距离，要么一点一点的调节以达到预期要求，但是，这样做既费时又费力，那么有什么办法能一劳永逸呢？">
 <meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/2836722-5b5f8f0b6f814441.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
@@ -315,7 +315,7 @@
           
         <p>在我们开发网站的过程中常常会遇到文本被强制换行的情况发生，比如：</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/2836722-5b5f8f0b6f814441.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="强制换行案例"><br>图中一个完整的 <code>a</code> 标签被活生生截断（强制换行），这往往不是我们所想要的，但是这也是我们无法避免的，因为在网站开发过程中，我们往往无法做到精确计算出能够完美展示所容纳文本格式的空间大小。</p>
-<p>遇到这种情况一般的处理思路要么想办法算距离，要么一点一点的调节以达到预期要求，但是，这样做既费时又费力，那么有什么办法能一劳永逸呢？<br>+<a id="more"></a></p>
+<p>遇到这种情况一般的处理思路要么想办法算距离，要么一点一点的调节以达到预期要求，但是，这样做既费时又费力，那么有什么办法能一劳永逸呢？<br><a id="more"></a></p>
 <p>其实 CSS 为我们提供了 <code>white-space</code> 属性<br>通过设置<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">a</span>&#123;<span class="attribute">white-space</span>:nowrap;&#125;</div></pre></td></tr></table></figure></p>
 <p>可以规定一个完整的 <code>a</code> 标签中的文本不进行换行，修改后的效果如图：</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/2836722-2385a724016dcb88.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="修改后的效果图"><br>当然不仅仅是 <code>a</code> 标签，在开发过程中我们可以对任意的一个文本整体设定这一属性，这样一来便不会出现一个整体被截断的情况了。</p>
@@ -370,7 +370,7 @@
         <p><span>本文标题:</span><a href="/2015/05/18/HTML-5-基础之-文本-强制不换行/">HTML 5 基础之 文本 强制不换行</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Nick</a></p>
         <p><span>发布时间:</span>2015-05-18, 04:23:26</p>
-        <p><span>最后更新:</span>2017-03-28, 22:29:15</p>
+        <p><span>最后更新:</span>2017-03-28, 22:34:00</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2015/05/18/HTML-5-基础之-文本-强制不换行/" title="HTML 5 基础之 文本 强制不换行">http://yoursite.com/2015/05/18/HTML-5-基础之-文本-强制不换行/</a>
             <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2015/05/18/HTML-5-基础之-文本-强制不换行/　　作者: Nick" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
