@@ -26,7 +26,7 @@
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2836722-b6ed4e4ea756c499.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2836722-ec97821b76ed6c2c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2836722-5d9faeb65358683a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2017-03-28T14:34:15.961Z">
+<meta property="og:updated_time" content="2017-03-29T02:39:01.355Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="js 匿名函数自执行 之 隐性影响">
 <meta name="twitter:description" content="今天在用面向对象进行编程的过程中，遇到了一个隐藏得很深的坑，在此与大家分享一下，避免以后再犯，也给大家提供一个参考。">
@@ -327,20 +327,16 @@
 <p><img src="http://upload-images.jianshu.io/upload_images/2836722-ec97821b76ed6c2c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="test2"></p>
 <hr>
 <blockquote>
-<p>#####那么问题来了，为何我们所设定的  “自执行的匿名函数” 会被当做参数传到了上面的函数中呢？</p>
-</blockquote>
+<h5 id="那么问题来了，为何我们所设定的-“自执行的匿名函数”-会被当做参数传到了上面的函数中呢？"><a href="#那么问题来了，为何我们所设定的-“自执行的匿名函数”-会被当做参数传到了上面的函数中呢？" class="headerlink" title="那么问题来了，为何我们所设定的  “自执行的匿名函数” 会被当做参数传到了上面的函数中呢？"></a>那么问题来了，为何我们所设定的  “自执行的匿名函数” 会被当做参数传到了上面的函数中呢？</h5></blockquote>
 <p>在平常编程的过程中，我们常常会在一句话的末尾加上分号来表示这句话的结束，然而对于函数，我想大部分人应该习惯性的不会加分号来进行分隔，因为函数与函数之间，函数与变量之间即使没有分号，也不会对彼此产生任何影响。</p>
 <p>然而，有一个东西写在函数后却会对前面的函数产生影响，而且一般很难察觉，它就是 <strong>自执行的匿名函数</strong>。</p>
-<p>#####由于这一匿名函数被设定为自执行，这就使得这个匿名函数无形中被 括号 包裹起来，即使与它上面的函数有换行的分隔也会被当做参数传入它上面的函数中，这一隐性影响使得 我们始终无法获得 自执行的匿名函数中的目标参数，因为它上面的函数已经把整个自执行的匿名函数当做了要传入的参数。</p>
-<hr>
+<h5 id="由于这一匿名函数被设定为自执行，这就使得这个匿名函数无形中被-括号-包裹起来，即使与它上面的函数有换行的分隔也会被当做参数传入它上面的函数中，这一隐性影响使得-我们始终无法获得-自执行的匿名函数中的目标参数，因为它上面的函数已经把整个自执行的匿名函数当做了要传入的参数。"><a href="#由于这一匿名函数被设定为自执行，这就使得这个匿名函数无形中被-括号-包裹起来，即使与它上面的函数有换行的分隔也会被当做参数传入它上面的函数中，这一隐性影响使得-我们始终无法获得-自执行的匿名函数中的目标参数，因为它上面的函数已经把整个自执行的匿名函数当做了要传入的参数。" class="headerlink" title="由于这一匿名函数被设定为自执行，这就使得这个匿名函数无形中被 括号 包裹起来，即使与它上面的函数有换行的分隔也会被当做参数传入它上面的函数中，这一隐性影响使得 我们始终无法获得 自执行的匿名函数中的目标参数，因为它上面的函数已经把整个自执行的匿名函数当做了要传入的参数。"></a>由于这一匿名函数被设定为自执行，这就使得这个匿名函数无形中被 括号 包裹起来，即使与它上面的函数有换行的分隔也会被当做参数传入它上面的函数中，这一隐性影响使得 我们始终无法获得 自执行的匿名函数中的目标参数，因为它上面的函数已经把整个自执行的匿名函数当做了要传入的参数。</h5><hr>
 <blockquote>
-<p>#####那么，肯定有人会说，把这个自执行的匿名函数放到他上面的函数的前面不就好了？</p>
-</blockquote>
+<h5 id="那么，肯定有人会说，把这个自执行的匿名函数放到他上面的函数的前面不就好了？"><a href="#那么，肯定有人会说，把这个自执行的匿名函数放到他上面的函数的前面不就好了？" class="headerlink" title="那么，肯定有人会说，把这个自执行的匿名函数放到他上面的函数的前面不就好了？"></a>那么，肯定有人会说，把这个自执行的匿名函数放到他上面的函数的前面不就好了？</h5></blockquote>
 <p>这确实是一个方法，不过你仔细看看上面提供的问题代码会发现，这个自执行的匿名函数的前一个函数的前面又是一个函数，那么这个自执行的匿名函数便又被当做了参数传入上面的函数中，<strong>只有当调整位置后的 自执行匿名函数 的前面再找不到函数的时候，这个方法才是有效的。</strong></p>
 <blockquote>
-<p>####不过最好的方法是:</p>
-</blockquote>
-<p>#####保证 -自执行的匿名函数- 的前面一句话的末尾始终有 -分号- 即可。<br>这样的话，即使这一 <strong>自执行的匿名函数</strong> 前面是函数，也不会有任何影响了。</p>
+<h4 id="不过最好的方法是"><a href="#不过最好的方法是" class="headerlink" title="不过最好的方法是:"></a>不过最好的方法是:</h4></blockquote>
+<h5 id="保证-自执行的匿名函数-的前面一句话的末尾始终有-分号-即可。"><a href="#保证-自执行的匿名函数-的前面一句话的末尾始终有-分号-即可。" class="headerlink" title="保证 -自执行的匿名函数- 的前面一句话的末尾始终有 -分号- 即可。"></a>保证 -自执行的匿名函数- 的前面一句话的末尾始终有 -分号- 即可。</h5><p>这样的话，即使这一 <strong>自执行的匿名函数</strong> 前面是函数，也不会有任何影响了。</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/2836722-5d9faeb65358683a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="代码修改处"></p>
 <hr>
 <blockquote>
@@ -357,7 +353,7 @@
         <p><span>本文标题:</span><a href="/2015/06/07/js-匿名函数自执行-之-隐性影响/">js 匿名函数自执行 之 隐性影响</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Nick</a></p>
         <p><span>发布时间:</span>2015-06-07, 00:00:00</p>
-        <p><span>最后更新:</span>2017-03-28, 22:34:15</p>
+        <p><span>最后更新:</span>2017-03-29, 10:39:01</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2015/06/07/js-匿名函数自执行-之-隐性影响/" title="js 匿名函数自执行 之 隐性影响">http://yoursite.com/2015/06/07/js-匿名函数自执行-之-隐性影响/</a>
             <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2015/06/07/js-匿名函数自执行-之-隐性影响/　　作者: Nick" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -393,7 +389,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            
+            <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#那么问题来了，为何我们所设定的-“自执行的匿名函数”-会被当做参数传到了上面的函数中呢？"><span class="toc-number">1.</span> <span class="toc-text">那么问题来了，为何我们所设定的  “自执行的匿名函数” 会被当做参数传到了上面的函数中呢？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#由于这一匿名函数被设定为自执行，这就使得这个匿名函数无形中被-括号-包裹起来，即使与它上面的函数有换行的分隔也会被当做参数传入它上面的函数中，这一隐性影响使得-我们始终无法获得-自执行的匿名函数中的目标参数，因为它上面的函数已经把整个自执行的匿名函数当做了要传入的参数。"><span class="toc-number">2.</span> <span class="toc-text">由于这一匿名函数被设定为自执行，这就使得这个匿名函数无形中被 括号 包裹起来，即使与它上面的函数有换行的分隔也会被当做参数传入它上面的函数中，这一隐性影响使得 我们始终无法获得 自执行的匿名函数中的目标参数，因为它上面的函数已经把整个自执行的匿名函数当做了要传入的参数。</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#那么，肯定有人会说，把这个自执行的匿名函数放到他上面的函数的前面不就好了？"><span class="toc-number">3.</span> <span class="toc-text">那么，肯定有人会说，把这个自执行的匿名函数放到他上面的函数的前面不就好了？</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#不过最好的方法是"><span class="toc-number"></span> <span class="toc-text">不过最好的方法是:</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#保证-自执行的匿名函数-的前面一句话的末尾始终有-分号-即可。"><span class="toc-number">1.</span> <span class="toc-text">保证 -自执行的匿名函数- 的前面一句话的末尾始终有 -分号- 即可。</span></a></li></ol>
         
     </div>
     <style>
@@ -401,8 +397,8 @@
         .left-col .switch-area {
             display: none;
         }
-        .toc-level-4 i,
-        .toc-level-4 ol {
+        .toc-level-6 i,
+        .toc-level-6 ol {
             display: none !important;
         }
     </style>

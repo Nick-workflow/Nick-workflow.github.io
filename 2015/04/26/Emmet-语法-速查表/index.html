@@ -21,7 +21,7 @@
 <meta property="og:url" content="http://yoursite.com/2015/04/26/Emmet-语法-速查表/index.html">
 <meta property="og:site_name" content="Nick's Blog">
 <meta property="og:description" content="Emmet是一款文本编辑器/IDE的插件，用来快速生成复杂的HTML代码，只要掌握一些常用的语法（类似于CSS选择器），就可以减少重复编码的工作。">
-<meta property="og:updated_time" content="2017-03-28T14:32:53.955Z">
+<meta property="og:updated_time" content="2017-03-29T02:34:57.806Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Emmet 语法 速查表">
 <meta name="twitter:description" content="Emmet是一款文本编辑器/IDE的插件，用来快速生成复杂的HTML代码，只要掌握一些常用的语法（类似于CSS选择器），就可以减少重复编码的工作。">
@@ -308,55 +308,39 @@
           
         <p><strong>Emmet是一款文本编辑器/IDE的插件，用来快速生成复杂的HTML代码，只要掌握一些常用的语法（类似于CSS选择器），就可以减少重复编码的工作。</strong><br><a id="more"></a></p>
 <hr>
-<p>####1.调用方法</p>
-<blockquote>
-<p>#####Emmet使用Tab作为自动生成HTML代码的触发器。</p>
-<p>######输入完生成HTML的缩写语句后，按下Tab，即可生成对应的HTML代码</p>
-</blockquote>
-<p>####2.相关语法</p>
-<blockquote>
-<p>#####后代：&gt;</p>
-<hr>
-<p>#####Child: &gt;</p>
-</blockquote>
+<h4 id="1-调用方法"><a href="#1-调用方法" class="headerlink" title="1.调用方法"></a>1.调用方法</h4><blockquote>
+<h5 id="Emmet使用Tab作为自动生成HTML代码的触发器。"><a href="#Emmet使用Tab作为自动生成HTML代码的触发器。" class="headerlink" title="Emmet使用Tab作为自动生成HTML代码的触发器。"></a>Emmet使用Tab作为自动生成HTML代码的触发器。</h5><h6 id="输入完生成HTML的缩写语句后，按下Tab，即可生成对应的HTML代码"><a href="#输入完生成HTML的缩写语句后，按下Tab，即可生成对应的HTML代码" class="headerlink" title="输入完生成HTML的缩写语句后，按下Tab，即可生成对应的HTML代码"></a>输入完生成HTML的缩写语句后，按下Tab，即可生成对应的HTML代码</h6></blockquote>
+<h4 id="2-相关语法"><a href="#2-相关语法" class="headerlink" title="2.相关语法"></a>2.相关语法</h4><blockquote>
+<h5 id="后代：-gt"><a href="#后代：-gt" class="headerlink" title="后代：&gt;"></a>后代：&gt;</h5><hr>
+<h5 id="Child-gt"><a href="#Child-gt" class="headerlink" title="Child: &gt;"></a>Child: &gt;</h5></blockquote>
 <p><strong>缩写</strong>：<code>div&gt;ul&gt;li</code></p>
 <figure class="highlight apache"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="section">&lt;div&gt;</span></div><div class="line">	<span class="section">&lt;ul&gt;</span></div><div class="line">		<span class="section">&lt;li&gt;</span><span class="section">&lt;/li&gt;</span></div><div class="line">	<span class="section">&lt;/ul&gt;</span></div><div class="line"><span class="section">&lt;/div&gt;</span></div></pre></td></tr></table></figure>
 <blockquote>
-<p>#####兄弟：+</p>
-<hr>
-<p>#####Sibling: +</p>
-</blockquote>
+<h5 id="兄弟："><a href="#兄弟：" class="headerlink" title="兄弟：+"></a>兄弟：+</h5><hr>
+<h5 id="Sibling"><a href="#Sibling" class="headerlink" title="Sibling: +"></a>Sibling: +</h5></blockquote>
 <p><strong>缩写</strong>：<code>div+p+bq</code></p>
 <figure class="highlight apache"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="section">&lt;div&gt;</span><span class="section">&lt;/div&gt;</span></div><div class="line"><span class="section">&lt;p&gt;</span><span class="section">&lt;/p&gt;</span></div><div class="line"><span class="section">&lt;blockquote&gt;</span><span class="section">&lt;/blockquote&gt;</span></div></pre></td></tr></table></figure>
 <blockquote>
-<p>#####上级元素：^</p>
-<hr>
-<p>#####Climb-up: ^</p>
-</blockquote>
+<h5 id="上级元素："><a href="#上级元素：" class="headerlink" title="上级元素：^"></a>上级元素：^</h5><hr>
+<h5 id="Climb-up"><a href="#Climb-up" class="headerlink" title="Climb-up: ^"></a>Climb-up: ^</h5></blockquote>
 <p><strong>缩写</strong>：<code>div+div&gt;p&gt;span+em^bq</code></p>
 <figure class="highlight apache"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="section">&lt;div&gt;</span><span class="section">&lt;/div&gt;</span></div><div class="line"><span class="section">&lt;div&gt;</span></div><div class="line">	<span class="section">&lt;p&gt;</span><span class="section">&lt;span&gt;</span><span class="section">&lt;/span&gt;</span><span class="section">&lt;em&gt;</span><span class="section">&lt;/em&gt;</span><span class="section">&lt;/p&gt;</span></div><div class="line">	<span class="section">&lt;blockquote&gt;</span><span class="section">&lt;/blockquote&gt;</span></div><div class="line"><span class="section">&lt;/div&gt;</span></div></pre></td></tr></table></figure>
 <p><strong>缩写</strong>：<code>div+div&gt;p&gt;span+em^^bq</code><br><figure class="highlight apache"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="section">&lt;div&gt;</span><span class="section">&lt;/div&gt;</span></div><div class="line"><span class="section">&lt;div&gt;</span></div><div class="line">    <span class="section">&lt;p&gt;</span><span class="section">&lt;span&gt;</span><span class="section">&lt;/span&gt;</span><span class="section">&lt;em&gt;</span><span class="section">&lt;/em&gt;</span><span class="section">&lt;/p&gt;</span></div><div class="line"><span class="section">&lt;/div&gt;</span></div><div class="line"><span class="section">&lt;blockquote&gt;</span><span class="section">&lt;/blockquote&gt;</span></div></pre></td></tr></table></figure></p>
 <blockquote>
-<p>#####分组：（）</p>
-<hr>
-<p>#####Grouping: ( )</p>
-</blockquote>
+<h5 id="分组：（）"><a href="#分组：（）" class="headerlink" title="分组：（）"></a>分组：（）</h5><hr>
+<h5 id="Grouping"><a href="#Grouping" class="headerlink" title="Grouping: ( )"></a>Grouping: ( )</h5></blockquote>
 <p><strong>缩写</strong>：<code>div&gt;(header&gt;ul&gt;li*2&gt;a)+footer&gt;p</code></p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">header</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">ul</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">""</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">""</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">header</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">footer</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">footer</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
 <p><strong>缩写</strong>：<code>(div&gt;dl&gt;(dt+dd)*3)+footer&gt;p</code></p>
 <figure class="highlight apache"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="section">&lt;div&gt;</span></div><div class="line">    <span class="section">&lt;dl&gt;</span></div><div class="line">        <span class="section">&lt;dt&gt;</span><span class="section">&lt;/dt&gt;</span></div><div class="line">        <span class="section">&lt;dd&gt;</span><span class="section">&lt;/dd&gt;</span></div><div class="line">        <span class="section">&lt;dt&gt;</span><span class="section">&lt;/dt&gt;</span></div><div class="line">        <span class="section">&lt;dd&gt;</span><span class="section">&lt;/dd&gt;</span></div><div class="line">        <span class="section">&lt;dt&gt;</span><span class="section">&lt;/dt&gt;</span></div><div class="line">        <span class="section">&lt;dd&gt;</span><span class="section">&lt;/dd&gt;</span></div><div class="line">    <span class="section">&lt;/dl&gt;</span></div><div class="line"><span class="section">&lt;/div&gt;</span></div><div class="line"><span class="section">&lt;footer&gt;</span></div><div class="line">    <span class="section">&lt;p&gt;</span><span class="section">&lt;/p&gt;</span></div><div class="line"><span class="section">&lt;/footer&gt;</span></div></pre></td></tr></table></figure>
 <blockquote>
-<p>#####重复多份：*</p>
-<hr>
-<p>#####Multiplication: *</p>
-</blockquote>
+<h5 id="重复多份："><a href="#重复多份：" class="headerlink" title="重复多份：*"></a>重复多份：*</h5><hr>
+<h5 id="Multiplication"><a href="#Multiplication" class="headerlink" title="Multiplication: *"></a>Multiplication: *</h5></blockquote>
 <p><strong>缩写</strong>：<code>ul&gt;li*5</code></p>
 <figure class="highlight apache"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="section">&lt;ul&gt;</span></div><div class="line">    <span class="section">&lt;li&gt;</span><span class="section">&lt;/li&gt;</span></div><div class="line">    <span class="section">&lt;li&gt;</span><span class="section">&lt;/li&gt;</span></div><div class="line">    <span class="section">&lt;li&gt;</span><span class="section">&lt;/li&gt;</span></div><div class="line">    <span class="section">&lt;li&gt;</span><span class="section">&lt;/li&gt;</span></div><div class="line">    <span class="section">&lt;li&gt;</span><span class="section">&lt;/li&gt;</span></div><div class="line"><span class="section">&lt;/ul&gt;</span></div></pre></td></tr></table></figure>
 <blockquote>
-<p>#####编号：$</p>
-<hr>
-<p>#####Item numbering: $</p>
-</blockquote>
+<h5 id="编号："><a href="#编号：" class="headerlink" title="编号：$"></a>编号：$</h5><hr>
+<h5 id="Item-numbering"><a href="#Item-numbering" class="headerlink" title="Item numbering: $"></a>Item numbering: $</h5></blockquote>
 <p><strong>缩写</strong>：<code>ul&gt;li.item$*5</code></p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;ul&gt;</div><div class="line">    <span class="xml"><span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"item1"</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></div><div class="line">    &lt;li <span class="class"><span class="keyword">class</span></span>=<span class="string">"item2"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></div><div class="line">    &lt;li <span class="class"><span class="keyword">class</span></span>=<span class="string">"item3"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></div><div class="line">    &lt;li <span class="class"><span class="keyword">class</span></span>=<span class="string">"item4"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></div><div class="line">    &lt;li <span class="class"><span class="keyword">class</span></span>=<span class="string">"item5"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></div><div class="line">&lt;<span class="regexp">/ul&gt;</span></div></pre></td></tr></table></figure>
 <p><strong>缩写</strong>：<code>h$[title=item$]{Header $}*3</code></p>
@@ -368,10 +352,8 @@
 <p><strong>缩写</strong>：<code>ul&gt;li.item$@3*5</code></p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;ul&gt;</div><div class="line">    <span class="xml"><span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"item3"</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></div><div class="line">    &lt;li <span class="class"><span class="keyword">class</span></span>=<span class="string">"item4"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></div><div class="line">    &lt;li <span class="class"><span class="keyword">class</span></span>=<span class="string">"item5"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></div><div class="line">    &lt;li <span class="class"><span class="keyword">class</span></span>=<span class="string">"item6"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></div><div class="line">    &lt;li <span class="class"><span class="keyword">class</span></span>=<span class="string">"item7"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></div><div class="line">&lt;<span class="regexp">/ul&gt;</span></div></pre></td></tr></table></figure>
 <blockquote>
-<p>#####ID和类属性</p>
-<hr>
-<p>#####ID and CLASS attributes</p>
-</blockquote>
+<h5 id="ID和类属性"><a href="#ID和类属性" class="headerlink" title="ID和类属性"></a>ID和类属性</h5><hr>
+<h5 id="ID-and-CLASS-attributes"><a href="#ID-and-CLASS-attributes" class="headerlink" title="ID and CLASS attributes"></a>ID and CLASS attributes</h5></blockquote>
 <p><strong>缩写</strong>：<code>#header</code></p>
 <figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;<span class="keyword">div</span> <span class="built_in">id</span>=<span class="string">"header"</span>&gt;&lt;/<span class="keyword">div</span>&gt;</div></pre></td></tr></table></figure>
 <p><strong>缩写</strong>：<code>.title</code></p>
@@ -381,10 +363,8 @@
 <p><strong>缩写</strong>：<code>p.class1.class2.class3</code></p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;p <span class="class"><span class="keyword">class</span></span>=<span class="string">"class1 class2 class3"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></div></pre></td></tr></table></figure>
 <blockquote>
-<p>#####自定义属性</p>
-<hr>
-<p>#####Custom attributes</p>
-</blockquote>
+<h5 id="自定义属性"><a href="#自定义属性" class="headerlink" title="自定义属性"></a>自定义属性</h5><hr>
+<h5 id="Custom-attributes"><a href="#Custom-attributes" class="headerlink" title="Custom attributes"></a>Custom attributes</h5></blockquote>
 <p><strong>缩写</strong>：<code>p[title=&quot;Hello world&quot;]</code></p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">title</span>=<span class="string">"Hello world"</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></div></pre></td></tr></table></figure>
 <p><strong>缩写</strong>：<code>td[rowspan=2 colspan=3 title]</code></p>
@@ -392,19 +372,15 @@
 <p><strong>缩写</strong>：<code>[a=&#39;value1&#39; b=&quot;value2&quot;]</code></p>
 <figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;<span class="keyword">div</span> <span class="keyword">a</span>=<span class="string">"value1"</span> b=<span class="string">"value2"</span>&gt;&lt;/<span class="keyword">div</span>&gt;</div></pre></td></tr></table></figure>
 <blockquote>
-<p>#####文本：{ }</p>
-<hr>
-<p>#####Text: { }</p>
-</blockquote>
+<h5 id="文本："><a href="#文本：" class="headerlink" title="文本：{ }"></a>文本：{ }</h5><hr>
+<h5 id="Text"><a href="#Text" class="headerlink" title="Text: { }"></a>Text: { }</h5></blockquote>
 <p><strong>缩写</strong>：<code>a{Click me}</code></p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">""</span>&gt;</span>Click me<span class="tag">&lt;/<span class="name">a</span>&gt;</span></div></pre></td></tr></table></figure>
 <p><strong>缩写</strong>：<code>p&gt;{Click }+a{here}+{ to continue}</code></p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Click <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">""</span>&gt;</span>here<span class="tag">&lt;/<span class="name">a</span>&gt;</span> to continue<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div></pre></td></tr></table></figure>
 <blockquote>
-<p>#####隐式标签</p>
-<hr>
-<p>#####Implicit tag names</p>
-</blockquote>
+<h5 id="隐式标签"><a href="#隐式标签" class="headerlink" title="隐式标签"></a>隐式标签</h5><hr>
+<h5 id="Implicit-tag-names"><a href="#Implicit-tag-names" class="headerlink" title="Implicit tag names"></a>Implicit tag names</h5></blockquote>
 <p><strong>缩写</strong>：<code>.class</code></p>
 <figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;<span class="keyword">div</span> <span class="built_in">class</span>&gt;&lt;/<span class="keyword">div</span>&gt;</div></pre></td></tr></table></figure>
 <p><strong>缩写</strong>：<code>em&gt;.class</code></p>
@@ -413,8 +389,7 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;ul&gt; <span class="xml"><span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"class"</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><span class="xml"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span></div></pre></td></tr></table></figure>
 <p><strong>缩写</strong>：<code>table&gt;.row&gt;.col</code></p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">table</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">tr</span> <span class="attr">class</span>=<span class="string">"row"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">td</span> <span class="attr">class</span>=<span class="string">"col"</span>&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">table</span>&gt;</span></div></pre></td></tr></table></figure>
-<p>#####3.HTML</p>
-<blockquote>
+<h5 id="3-HTML"><a href="#3-HTML" class="headerlink" title="3.HTML"></a>3.HTML</h5><blockquote>
 <p><em>所有未知的缩写都会转换成标签，例如，foo → <foo></foo></em><br><strong>缩写</strong>：<code>!</code></p>
 </blockquote>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">    </div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
@@ -434,7 +409,7 @@
         <p><span>本文标题:</span><a href="/2015/04/26/Emmet-语法-速查表/">Emmet 语法 速查表</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Nick</a></p>
         <p><span>发布时间:</span>2015-04-26, 00:00:00</p>
-        <p><span>最后更新:</span>2017-03-28, 22:32:53</p>
+        <p><span>最后更新:</span>2017-03-29, 10:34:57</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2015/04/26/Emmet-语法-速查表/" title="Emmet 语法 速查表">http://yoursite.com/2015/04/26/Emmet-语法-速查表/</a>
             <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2015/04/26/Emmet-语法-速查表/　　作者: Nick" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -470,7 +445,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            
+            <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-调用方法"><span class="toc-number">1.</span> <span class="toc-text">1.调用方法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Emmet使用Tab作为自动生成HTML代码的触发器。"><span class="toc-number">1.1.</span> <span class="toc-text">Emmet使用Tab作为自动生成HTML代码的触发器。</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#输入完生成HTML的缩写语句后，按下Tab，即可生成对应的HTML代码"><span class="toc-number">1.1.1.</span> <span class="toc-text">输入完生成HTML的缩写语句后，按下Tab，即可生成对应的HTML代码</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-相关语法"><span class="toc-number">2.</span> <span class="toc-text">2.相关语法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#后代：-gt"><span class="toc-number">2.1.</span> <span class="toc-text">后代：></span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Child-gt"><span class="toc-number">2.2.</span> <span class="toc-text">Child: ></span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#兄弟："><span class="toc-number">2.3.</span> <span class="toc-text">兄弟：+</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Sibling"><span class="toc-number">2.4.</span> <span class="toc-text">Sibling: +</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#上级元素："><span class="toc-number">2.5.</span> <span class="toc-text">上级元素：^</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Climb-up"><span class="toc-number">2.6.</span> <span class="toc-text">Climb-up: ^</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#分组：（）"><span class="toc-number">2.7.</span> <span class="toc-text">分组：（）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Grouping"><span class="toc-number">2.8.</span> <span class="toc-text">Grouping: ( )</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#重复多份："><span class="toc-number">2.9.</span> <span class="toc-text">重复多份：*</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Multiplication"><span class="toc-number">2.10.</span> <span class="toc-text">Multiplication: *</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#编号："><span class="toc-number">2.11.</span> <span class="toc-text">编号：$</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Item-numbering"><span class="toc-number">2.12.</span> <span class="toc-text">Item numbering: $</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#ID和类属性"><span class="toc-number">2.13.</span> <span class="toc-text">ID和类属性</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#ID-and-CLASS-attributes"><span class="toc-number">2.14.</span> <span class="toc-text">ID and CLASS attributes</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#自定义属性"><span class="toc-number">2.15.</span> <span class="toc-text">自定义属性</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Custom-attributes"><span class="toc-number">2.16.</span> <span class="toc-text">Custom attributes</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#文本："><span class="toc-number">2.17.</span> <span class="toc-text">文本：{ }</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Text"><span class="toc-number">2.18.</span> <span class="toc-text">Text: { }</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#隐式标签"><span class="toc-number">2.19.</span> <span class="toc-text">隐式标签</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Implicit-tag-names"><span class="toc-number">2.20.</span> <span class="toc-text">Implicit tag names</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-HTML"><span class="toc-number">2.21.</span> <span class="toc-text">3.HTML</span></a></li></ol></li></ol>
         
     </div>
     <style>
@@ -478,8 +453,8 @@
         .left-col .switch-area {
             display: none;
         }
-        .toc-level-4 i,
-        .toc-level-4 ol {
+        .toc-level-6 i,
+        .toc-level-6 ol {
             display: none !important;
         }
     </style>
